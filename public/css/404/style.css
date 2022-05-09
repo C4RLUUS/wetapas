@@ -1,0 +1,9 @@
+*{
+    background-color: red;
+    color: white;
+}
+
+.contenedor{
+    display: grid;
+    place-items: center;
+}
