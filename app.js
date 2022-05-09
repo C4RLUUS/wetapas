@@ -13,7 +13,8 @@ app.use(express.static(__dirname + "/public"))
 app.use(express.urlencoded({ extended: true}))
 
 //Rutas de la web
-app.use('/', require('./routes/index'));
+app.
+use('/', require('./routes/index'));
 // app.use('/comprar', require('./routes/comprar'));
 // app.use('/login', require('./routes/login'));
 // app.use('/signup', require('./routes/signup'));
