@@ -1,3 +1,26 @@
 <%- include("templates/head", {titulo: "Mi primer sitio web"}) %> 
 <link rel="stylesheet" href="/css/index/style.css">
 </head>
+<body>
+    <h1>Hola chavalada</h1>
+    <nav class="menu">
+        <a href="/sobreNosotros">
+            <h3>Sobre Nosotros</h3>
+        </a><a href="/productos">
+            <h3>Productos</h3>
+        </a><a href="/comoFunciona">
+            <h3>Como Funciona</h3>
+    </nav>
+
+
+    <form action="/" method="post">
+        <label for="CodePost">Comprueba tu Código Postal</label>
+        <input type="number" name="codepost" id="CodePost">
+        <button type="submit">Enviar</button>
+    </form>
+    <% if(mensaje) {%> 
+    <p><%= mensaje %></p>
+    <% } %> 
+
+
+</body>
