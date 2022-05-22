@@ -1,0 +1,26 @@
+<%- include("templates/head", {titulo: "Login | Wetapas"}) %> 
+<link rel="stylesheet" href="/css/index/style.css">
+</head>
+<body>
+    <h1>carrito</h1>
+    <% if(totalPrice) {%>
+            <h4>El precio total es: <%=totalPrice%>€</h4>
+    <% } %> 
+
+    <% if(totalItems) {%>
+        <h4>Hay <%=totalItems%> productos: </h4>
+<% } %> 
+
+    <br>
+   <% if(productos) {%>
+        <% for (let i = 0; i < productos.length; i++) { %>
+            <img src=<%=productos[i].item.imagen%> alt="" srcset="">
+            <h3><%=productos[i].item.nombre%></h3>
+            <h3><%=productos[i].item.precio%>€</h3>
+            <h3>Cantidad: <%=productos[i].cantidad%></h3>
+            <h3>Precio Total: <%=productos[i].precio%>€</h3>
+            <br>
+        <a href="/productos/carrito/remove?id=<%=productos[i].item.id%>">Eliminar</a>
+        <%} %> 
+    <% } %>  
+</body>

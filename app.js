@@ -1,6 +1,8 @@
+const { Router } = require('express');
 const express = require('express'); 
 const app = express(); 
 const port = 3000; 
+const session = require('express-session')
 var path = require('path');
 
 
@@ -8,15 +10,38 @@ var path = require('path');
 app.set('view engine', 'ejs');
 app.set('views',path.join(__dirname, 'views'));
 
-app.use(express.static(__dirname + "/public"))
 
-app.use(express.urlencoded({ extended: true}))
+//Sessiones
+app.use(session({
+    secret: 'tapasdera_carlus',
+    resave: false,
+    saveUninitialized: false,
+    name:"secreto-name-turutu", 
+    cookie: { secure: false }
+  }))
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(__dirname));
+
+// use a middleware function
+// app.use("/", (req, res, next) => {
+//     console.log("first")
+//     next();
+//   });
+
+var auth = function(req, res, next) {
+  if (!req.session.email)
+    return next();
+  else
+    return res.sendStatus(401);
+};
+
 
 //Rutas de la web
-app.
-use('/', require('./routes/index'));
-// app.use('/comprar', require('./routes/comprar'));
-// app.use('/login', require('./routes/login'));
+app.use('/', require('./routes/index'));
+app.use('/productos', require('./routes/productos'));
+app.use('/login', require('./routes/login'));
 // app.use('/signup', require('./routes/signup'));
 // app.use('/support', require('./routes/support'));
 

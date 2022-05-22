@@ -1,0 +1,19 @@
+<%- include("templates/head", {titulo: "Login | Wetapas"}) %> 
+<link rel="stylesheet" href="/css/index/style.css">
+</head>
+<body>
+    <h1>Login</h1>
+    
+    
+
+    <form action="/login" method="post">
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email">
+        <button type="submit">Enviar</button>
+    </form>
+    <% if(this.mensaje == true) {%> 
+    <p><%= mensaje %></p>
+    <% } %> 
+
+
+</body>
