@@ -75,6 +75,68 @@ router.get("/carrito/remove", async (req, res) => {
     
 }) 
 
+router.get("/carrito/direcciones", async (req, res) => {
+  console.log(req.session)
+  if(!req.session.cart){
+    res.redirect("/productos")
+  }else{
+    if(req.session.cart.totalItems <= 0){
+
+    res.redirect("/productos")
+  }
+}
+  
+
+
+  if(!req.session.user){
+    res.redirect("/login")
+  }
+
+  res.render("direcciones")
+
+}); 
+
+router.post("/carrito/direcciones", async (req, res) =>{
+  try{
+
+    let name = req.body.firstName
+    let apellido = req.body.lastName
+    let telefono = req.body.telefono
+    let dni = req.body.dni
+    let pais = req.body.pais
+    let provincia = req.body.provincia
+    let ciudad = req.body.ciudad
+    let postcode = req.body.postcode
+    let direccion = req.body.direccion
+
+    //validar
+    let url_crear_direccion = "http://127.0.0.1:8000/api/direcciones/crear"
+    const response = await axios.post(url_crear_direccion, {
+      id_user:req.session.user.id, 
+      pais:pais, 
+      proviencia:provincia, 
+      ciudad:ciudad, 
+      postcode:postcode, 
+      direccion1:direccion, 
+      telefono:telefono, 
+      dni:dni,
+      firstName:name, 
+      lastName:apellido, 
+      deleted:0
+    })
+    let direccionRes = response.data.direccion
+    req.session.direccion = {direccion: direccionRes}
+    req.session.save( () => {
+
+      res.redirect("/productos") 
+    })
+
+  }catch(err){
+    console.log(err)
+  }
+
+}); 
+
 router.get("/:id", async (req, res) => {
         try{
             let url_productoPorId =`http://127.0.0.1:8000/api/productos/mostrar/${req.params.id}`

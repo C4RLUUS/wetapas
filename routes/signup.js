@@ -1,65 +1,83 @@
+const express = require('express');
+const router = express.Router();
+const session = require('express-session')
+const axios = require('axios').default;
 
 router.get("/", async (req, res, next) => {
-    // req.session.email = "hola"
-    // console.log("Login")
-    // console.log(req.session)
-    // req.session.save(function(err) {
-        // session saved
-        res.render("signUp"); 
-    //   })
+  
+    if(req.session.user){
+        res.redirect("/")
+    }
+    if(req.query.error){
+        let error = req.query.error
+        res.render("signup", {mensaje: error}); 
+    }else{
+        res.render("signup")
+    }
+   
 
 }); 
 
 router.post("/", async (req, res, next) => {
-    let name = req.body.firstName
-    let apellido = req.body.lastName
-    let email = req.body.email; 
-    let password = req.body.password;
-    let rango = 1; 
-    let telefono = req.body.telefono 
 
-
-    let valido = false;
-    let url_registro = "";
-    const response = await axios.get(url_registro); 
-    let usuarios = response.data.usuario; 
-    let emailCorrecto = false
-
-    for (let i = 0; i < usuarios.length; i++) {
-        if(usuario[i].email == email ){
+    try{
+        let name = req.body.firstName
+        let apellido = req.body.lastName
+        let email = req.body.email; 
+        let password = req.body.password;
+        let telefono = req.body.telefono 
+    
+    
+    
+        let valido = true;
+        //validar
+        let url_usuarios = `http://127.0.0.1:8000/api/usuarios/verificar/${email}`;
+        const response = await axios.get(url_usuarios); 
+        let usuarios = response.data.usuario; 
+        let emailCorrecto = false
+        if(usuarios.length == 0){
             emailCorrecto = true
-            if(usuarios[i].password == password){
-                valido = true; 
-                req.session.user.id = usuario[i].id
+        }
+        console.log("Longitud del array de usuarios")
+        console.log(usuarios.length)
+        console.log(emailCorrecto)
+        console.log(valido)
+
+        if(valido == true && emailCorrecto==true){
+            console.log("Entró en el registro")
+            let url_user_registro ="http://127.0.0.1:8000/api/usuarios/crear"; 
+           const registroUser = await axios.post(url_user_registro, {
+               firstName: name, 
+               lastName: apellido, 
+               email: email, 
+               password: password, 
+               rango: 1, 
+               telefono: telefono, 
+               deleted: 0
+           }).then((response) => {
+               console.log(response.data.message)
+               console.log(response.data.usuario)
+               req.session.user = response.data.usuario
+               req.session.save( () => {
+                    res.redirect("/")
+               })
+           })
+        }else{
+            let error;
+            if(emailCorrecto == false){
+    
+                error = "El email es incorrecto"
+                res.redirect("/signup?error=" + error); 
+            }else{
+                error = "La contrasena es incorrecta"; 
+                res.redirect("/signup?error=" + error); 
             }
         }
-        
-        if(valido == true){
-            break; 
-        }
 
+    }catch(err){
+        console.log(err)
     }
 
-    if(valido == true){
-
-        url_userId = `${req.session.user.id}`
-        let responseUser = await axios.get(url_userId); 
-        req.session.user = responseUser.data.usuario
-    
-        req.session.save(() =>{
-            res.redirect("/");  
-        })
-    }else{
-        let error;
-        if(emailCorrecto == false){
-
-            error = "El email es incorrecto"
-            res.redirect("/login?error=" + error); 
-        }else{
-            error = "La contrasena es incorrecta"; 
-            res.redirect("/login?error=" + error); 
-        }
-    }
    
 }); 
 

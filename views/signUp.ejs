@@ -1,14 +1,22 @@
-<%- include("templates/head", {titulo: "Login | Wetapas"}) %> 
+<%- include("templates/head", {titulo: "SingUp | Wetapas"}) %> 
 <link rel="stylesheet" href="/css/index/style.css">
 </head>
 <body>
-    <h1>Login</h1>
+    <h1>Registro</h1>
     
     
 
-    <form action="/login" method="post">
+    <form action="/signup" method="post">
+        <label for="name">Nombre</label>
+        <input type="text" name="firstName" id="name">
+        <label for="apellido">Apellidos</label>
+        <input type="text" name="lastName" id="apellido">
         <label for="email">Email</label>
         <input type="email" name="email" id="email">
+        <label for="pass">Contraseña</label>
+        <input type="password" name="password" id="pass">
+        <label for="tel">Telefono</label>
+        <input type="number" name="telefono" id="tel" placeholder="+34">
         <button type="submit">Enviar</button>
     </form>
     <% if(this.mensaje == true) {%> 
