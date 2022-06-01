@@ -1,0 +1,44 @@
+<%- include("templates/head", {titulo: "Pedido | Wetapas"}) %> 
+</head>
+<body>
+    <h1>Pedido</h1>
+
+    <% if(user){ %> 
+        <h2>Ya queda poco <%=user.firstName%>, completa este último formulario y ya solo te quedaría disfrutar de tu pedido</h2>
+    <% } %> 
+
+    <h2>Resumen del pedido:</h2>
+    <% if(cart){ %> 
+        <h3>Carrito de compra</h3>
+        <h4>Tienes <%= cart.totalItems %> productos para comprar</h4>
+        <h4>Total a pagar: <%= cart.totalPrice %></h4>
+
+       <% ids.forEach(element => { %>
+            <% console.log("Holaaaaaaaaaaa") %> 
+            <% if(cart.items[element] != undefined){ %>
+            <% console.log(cart.items[element]) %> 
+            <h4>Nombre: <%= cart.items[element].item.nombre %></h4>
+            <h4>Precio: <%= cart.items[element].item.precio %>€</h4>
+            <h4>Cantidad: <%= cart.items[element].cantidad %></h4>
+            <h4>Precio total de este producto: <%= cart.items[element].precio%>€</h4>
+            
+            <% console.log(cart.items[element].item) %> 
+            <% }%>     
+      <% }); %> 
+        
+    <% } %> 
+
+    <% if(direccion){ %> 
+        <h3>Direccion a la que se va a enviar</h3>
+        <p>Ciudad: <%= direccion.ciudad%></p> 
+        <p>Código postal: <%= direccion.postcode %></p> 
+        <p><%= direccion.direccion1  %></p> 
+        <p>Telefono: <%= direccion.telefono %></p> 
+        <p>Nombre y apellidos: <%= direccion.firstName %> <%= direccion.lastName %></p> 
+    <% } %> 
+    
+    <form action="/carrito/pedido" method="post">
+
+    </form>
+
+</body>

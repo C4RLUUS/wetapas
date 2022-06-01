@@ -8,6 +8,6 @@
         <h3><%= productos[i].nombre%></h3>
         <h5><%= productos[i].precio%>€</h5>
         <a href="/productos/<%=productos[i].id%>">Más detalles</a>
-        <a href="/productos/carrito/add?id=<%=productos[i].id%>">Comprar</a>
+        <a href="/carrito/add?id=<%=productos[i].id%>">Comprar</a>
     <% } %> 
 </body>

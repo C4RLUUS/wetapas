@@ -3,10 +3,21 @@
 </head>
 <body>
     <h1>Registro</h1>
-    
+
+    <% if(direcciones){ %> 
+    <form action="/carrito/direcciones" method="post">
+        <select name="idDireccion">
+            <% direcciones.forEach(element => { %>
+                <% console.log(element.ciudad) %> 
+                <option value="<%= element.id%>"><%= element.ciudad %>, <%= element.postcode %>, <%= element.direccion1 %>, <%= element.firstName %> <%= element.lastName %></option>
+           <% }); %> 
+        </select>
+        <button type="submit">Continuar</button>
+    </form>
+    <% } %> 
     
 
-    <form action="/productos/carrito/direcciones" method="post">
+    <form action="/carrito/direcciones" method="post">
         <label for="name">Nombre</label>
         <input type="text" name="firstName" id="name">
         <label for="apellido">Apellidos</label>

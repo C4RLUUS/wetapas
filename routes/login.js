@@ -23,6 +23,9 @@ router.post("/", async (req, res, next) => {
     try{
         let email = req.body.email; 
         let password = req.body.password; 
+
+        // validacion
+
         let usuarios = []
       
     

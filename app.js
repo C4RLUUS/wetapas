@@ -43,6 +43,7 @@ app.use('/', require('./routes/index'));
 app.use('/productos', require('./routes/productos'));
 app.use('/login', require('./routes/login'));
 app.use('/signup', require('./routes/signup'));
+app.use('/carrito', require('./routes/carrito'));
 // app.use('/support', require('./routes/support'));
 
 app.set('port', process.env.PORT || 3000);
