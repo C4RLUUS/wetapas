@@ -1,21 +1,8 @@
-
 :root {
     --rojoOscuro: #941C2F;
     --rojoClaro: #F76C5E; 
     --blanco: #fff; 
     --azulOscuro: #122C34; 
-}
-
-
-
-html, body{
-    font-family: "Poppins", sans-serif; 
-
-}
-.footer{
-    width: 100%;
-    height: 200px;
-    background-color: red;
 }
 
 .header{
@@ -24,6 +11,7 @@ html, body{
     background-color: var(--rojoClaro); 
     display: flex;
 }
+
 /* TODO:MENU */
 
 /* TODO:menu-izq */
@@ -89,5 +77,3 @@ html, body{
     padding-top: 5px;
     text-decoration: none;
 }
-
-

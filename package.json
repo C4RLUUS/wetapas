@@ -20,6 +20,7 @@
   "homepage": "https://github.com/C4RLUUS/wetapas#readme",
   "dependencies": {
     "axios": "^0.27.2",
+    "bootstrap": "^5.2.0-beta1",
     "cookie-parse": "^0.4.0",
     "ejs": "^3.1.7",
     "express": "^4.18.1",

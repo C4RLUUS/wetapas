@@ -1,13 +1,41 @@
-<%- include("templates/head", {titulo: "Productos | Wetapas"}) %> 
+<%- include("templates/head", {titulo: "Productos | Wetapas"}) %>
+<link rel="stylesheet" href="../public/css/views/productos.css"> 
 </head>
 <body>
-    <h1>Productos</h1>
+    <%- include("templates/cabecera") %>
+    <main class="main">
 
-    <% for (let i = 0; i < productos.length; i++) { %>
-        <img src=<%=productos[i].imagen%> alt="" srcset="">
-        <h3><%= productos[i].nombre%></h3>
-        <h5><%= productos[i].precio%>€</h5>
-        <a href="/productos/<%=productos[i].id%>">Más detalles</a>
-        <a href="/carrito/add?id=<%=productos[i].id%>">Comprar</a>
-    <% } %> 
+        <h1 class="text-center text-title text-rojoOscuro">Tapas únicas</h1>
+
+        <p class="text-text text-center text-rojoOscuro">Raciones pensadas para tapear al menos dos personas (300gr-400gr)</p>
+
+        <div class="container">
+            <div class="row">
+                
+                <% for (let i = 0; i < productos.length; i++) { %>
+                    <div class="product-card col-md-12 col-lg-4 mx-auto mt-4">
+                        <a href="/productos/<%=productos[i].id%>" class="text-decoration-none mb-0 pb-0">
+                            <img src="<%=productos[i].imagen%>" alt="" srcset="" class="product-img">
+                            <p class="opinion">5.5⭐</p>
+                            <div class="product-info">
+                                <p class="product-title"><%= productos[i].nombre%></p>
+                                <!-- <div class="linea"></div> -->
+                            </div>
+                        </a>
+                        <div class="linea-card"></div>
+                            <div class="d-flex">  
+                                <p class="precio"><%= productos[i].precio%>€</p>
+                                <div class="add-box">
+
+                                    <a href="http://" class="product-btn-drc">Add</a>
+                                </div>
+                            </div>
+                    </div>
+                <% } %> 
+            </div>
+        </div>
+    
+    </main> 
+
+    <%- include("templates/footer") %> 
 </body>

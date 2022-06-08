@@ -1,9 +1,9 @@
 <%- include("templates/head", {titulo: "Mi primer sitio web"}) %> 
-<link rel="stylesheet" href="../public/css/index/style.css">
+<link rel="stylesheet" href="../public/css/views/index.css">
 </head>
 <body>
     <%- include("templates/cabecera") %> 
-    <h1>Hola chavalada</h1>
+    <!-- <h1>Hola chavalada</h1>
     <nav class="menu">
         <a href="/sobreNosotros">
             <h3>Sobre Nosotros</h3>
@@ -12,18 +12,94 @@
         </a><a href="/comoFunciona">
             <h3>Como Funciona</h3>
             </a>
-    </nav>
+    </nav> -->
+    <main class="main">
+        <section>
+            <!-- <div class="img-main">
+                <img src="../public/img/Figura.jpg" alt="" srcset="" class="img-w">
+            </div> -->
+        </section>
+        <section class="codePost-comprobation">
+
+            <form action="/" method="post" class="postcode-form">
+                <label for="CodePost" class="text-blanco title">Comprueba tu Código Postal</label>
+                <div class="postcode-input">
+                    <input type="number" name="codepost" id="CodePost">
+                    <button type="submit" class="btn-form"><span class="iconify" data-icon="bxs:right-arrow-alt" data-width="40" data-height="40"></span></button>
+                </div>
+            </form>
+            <% if(this.mensaje == true) {%> 
+            <p class="text-rojoO"><%= mensaje %></p>
+            <% } %> 
+
+            <h4 class="text-blanco semititle text-center ma-1">Si pido ahora, ¿cuánto tardará en llegar mi pedido? 🧐</h4>
+        </section>
+        <section>
+            <div class="container">
+                <h2 class="title text-rojoO ma-1 text-center">¿Tienes ganas de tapear pero no tienes nada que te apetezca en casa? Dí adiós a ese sentimiento
+                </h2>
+                <div class="f-row ma-1">
+                    <div class="icon">
+                        <span class="iconify text-rojoC" data-icon="fluent:cart-16-regular" data-width="40" data-height="40"></span>
+
+                        <h5 class="semititle text-rojoC">Cambiamos la carta cada semana</h5>
+                    </div>
+                    <p class="text text-rojoC row-msg">Cada miércoles cambiamos los productos para que tengas variedad en donde elegir</p>
+                </div>
+                <div class="f-row ma-1">
+                    <div class="icon">
+                        <span class="iconify text-rojoC" data-icon="icon-park-outline:cook" data-width="40" data-height="40"></span>
+
+                        <h5 class="semititle text-rojoC">Cocinamos por tí</h5>
+                    </div>
+                    <p class="text text-rojoC row-msg">Cocinamos nuestros productos con ingredientes frescos y de temporada</p>
+                </div>
+                <div class="f-row ma-1">
+                    <div class="icon">
+                        <span class="iconify text-rojoC" data-icon="carbon:delivery" data-width="40" data-height="40"></span>
+
+                        <h5 class="semititle text-rojoC">Recibe donde quieras</h5>
+                    </div>
+                    <p class="text text-rojoC row-msg">En la oficina, en casa, en tu casa del pueblo, en donde quieras....</p>
+                </div>
+                <div class="f-row ma-1">
+                    <div class="icon">
+                        <span class="iconify text-rojoC" data-icon="carbon:delivery" data-width="40" data-height="40"></span>
+
+                        <h5 class="semititle text-rojoC">Recibe donde quieras</h5>
+                    </div>
+                    <p class="text text-rojoC row-msg">En la oficina, en casa, en tu casa del pueblo, en donde quieras....</p>
+                </div>
+
+            </div>
+            <img src="../public/img/banner (1).jpg" alt="" srcset="" class="banner-img">
+        </section>
+        <section class="community">
+            <div class="container-comunity">
+                <h4 class="title text-blanco text-center pt-5 pb-3">
+                    Únete ya a nuestra comunidad
+                </h4>
+    
+                <p class="text text-blanco py-4 text-center">Contamos ya con miles de usuarios que disfrutan cada semana de nuevas y deliciosas tapas, ¿a qué estas esperando?¡Únete ya!</p>
+
+                <div class="d-flex justify-content-center">
+
+                    <div class="images gap-2">
+    
+                        <img src="../public/img/community-1.jpg" alt="" srcset="" class="col-12 col-lg-6 col-xl-2 img-border-radius">
+                        <img src="../public/img/community-2.jpg" alt="" srcset="" class="col-12 col-lg-6 col-xl-2 img-border-radius">
+                        <img src="../public/img/community-3.jpg" alt="" srcset="" class="col-12 col-lg-6 col-xl-2 img-border-radius">
+                        <img src="../public/img/community-4.jpg" alt="" srcset="" class="col-md-12 col-lg-6 col-xl-2 img-border-radius">
+                    </div>
+                </div>
+               
+
+            </div>
+        </section>
+    </main>
 
 
-    <form action="/" method="post">
-        <label for="CodePost">Comprueba tu Código Postal</label>
-        <input type="number" name="codepost" id="CodePost">
-        <button type="submit">Enviar</button>
-    </form>
-    <% if(this.mensaje == true) {%> 
-    <p><%= mensaje %></p>
-    <% } %> 
 
-
+    <%- include("templates/footer") %> 
 
 </body>

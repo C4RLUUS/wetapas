@@ -1,21 +1,44 @@
 <%- include("templates/head", {titulo: "Login | Wetapas"}) %> 
-<link rel="stylesheet" href="/css/index/style.css">
+<link rel="stylesheet" href="../public/css/views/login.css">
 </head>
 <body>
-    <h1>Login</h1>
-    
-    
+    <%- include("templates/cabecera") %> 
+    <main class="main">
+        <img src="../public/img/login-img.jpg" alt="" srcset="" class="login-img">
+       
+        <div class="box"> 
+            <div class="form-box d-flex justify-content-center flex-column">
+                <h1 class="form-title">Login</h1>
+                        
+                    <form action="/login" method="post" class="form-input">
+                            <div class="d-flex justify-content-center gap-1 flex-column mx-5">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" name="email" id="email" class="inputs">
+                            </div>
+                            <div class="d-flex justify-content-center gap-1 flex-column mx-5">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" name="password" id="password" class="inputs">
+                            </div>
+                            <button type="submit" class="btn-submit mb-4 mx-auto">Enviar</button>
+                        </form>
+                    <% if(this.mensaje == true) {%> 
+                    <p><%= mensaje %></p>
+                    <% } %> 
+            </div>
+        </div>
+        
+        <!-- <div class="rojo">
+            <div class="azul">
+               
+                <div class="texto-prueba">
+                    <p>Hola</p>
+                </div>
+                
+            </div>
+        </div> -->
+        
+    </main>
 
-    <form action="/login" method="post">
-        <label for="email">Email</label>
-        <input type="email" name="email" id="email">
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password">
-        <button type="submit">Enviar</button>
-    </form>
-    <% if(this.mensaje == true) {%> 
-    <p><%= mensaje %></p>
-    <% } %> 
-
+    <%- include("templates/footer") %> 
 
 </body>

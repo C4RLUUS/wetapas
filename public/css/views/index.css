@@ -1,0 +1,128 @@
+
+:root {
+    --rojoOscuro: #941C2F;
+    --rojoClaro: #F76C5E; 
+    --blanco: #fff; 
+    --azulOscuro: #122C34; 
+}
+
+html, body{
+    font-family: "MuseoModerno", sans-serif; 
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+}
+
+
+/* TODO:Main */
+/* figura */
+.main{
+    background-color: #fff;
+    width: 100%;
+    height: auto;  
+}
+.img-main{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+.img-w{
+    width: 800px;
+    height: 650px;
+
+}
+
+
+/* codePost */
+.codePost-comprobation{
+    width: 100%;
+    height: 200px;
+    background-color: var(--rojoClaro);
+}
+
+.text-blanco{
+    color: var(--blanco);
+}
+.text-rojoO{
+    color: var(--rojoOscuro);
+}
+.text-rojoC{
+    color: var(--rojoClaro);
+}
+.text-semibold{
+    font-weight: 600;
+}
+.title{
+    font-size: 22px;
+    font-weight: 900;
+}
+.semititle{
+    font-size: 20px;
+    font-weight: 600;
+}
+.text{
+    font-size: 18px;
+}
+.ma-1{
+    margin: 30px 0px;
+}
+
+.postcode-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+}
+.postcode-input{
+    display: flex;
+    align-items: center;
+}
+.btn-form{
+    height: 30px;
+    clip-path: ellipse(100% 80% at 0% 50%);
+    background-color: var(--rojoOscuro);
+    color: var(--blanco);
+    border: 0px;
+}
+
+/* caracteristicas */
+.f-row{
+    width: 80%;
+    /* background-color: #ccc; */
+}
+.icon{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.row-msg{
+    padding-left: 50px;
+    font-weight: lighter;
+}
+.banner-img{
+    width: 100%; 
+    height: 500px;
+    object-fit:contain; 
+}
+
+
+/* community */
+.community{
+    background-color: var(--rojoClaro);
+    width: 100%;
+    height:auto;
+    display: flex;
+    justify-content: center;
+}
+.container-comunity{
+    width: 80%;
+}
+.images{
+    width: 100%;
+    height: auto;
+    
+}
+.img-border-radius{
+    border-radius: 20px;
+}
