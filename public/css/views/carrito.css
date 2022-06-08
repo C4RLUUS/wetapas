@@ -1,0 +1,145 @@
+:root {
+    --rojoOscuro: #941C2F;
+    --rojoClaro: #F76C5E; 
+    --blanco: #fff; 
+    --azulOscuro: #122C34; 
+}
+
+html,body{
+    margin: 0px; 
+    padding: 0px;
+    font-family: "MuseoModerno", sans-serif;
+}
+
+.h1-title{
+    font-size: 40px;
+    font-weight: bolder;
+    color: var(--rojoOscuro);
+    text-align: center;
+    margin-top: 30px;
+}
+
+
+.product-card{
+    width: 100%;
+    height: 300px;
+    background-color: var(--rojoClaro);
+    border-radius: 40px;
+    filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.5));
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    padding: 0px;
+}
+.product-body{
+    width: 100%;
+    height: 200px;
+    display: flex;
+}
+.product-footer{
+    width: 100%;
+    height: 100px;
+    background-color: var(--rojoOscuro);
+    border-radius: 0px 0px 40px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.product-img{
+    border-radius: 20px;
+    width: 220px;
+    height: 150px;
+    object-fit: fill;
+    margin: 25px 20px;
+}
+.product-text{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+.product-extra{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: flex-end;
+    gap: 30px;
+}
+.product-name{
+    color: var(--blanco);
+    font-size: 24px;
+    font-weight: bolder;
+    margin-top: 30px;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+}
+.total-precio{
+    font-size: 22px ;
+    font-weight: 600;
+    color: var(--blanco);
+    margin-bottom: 0px;
+}
+.remove-item{
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    display: block;
+    width: 60px;
+    height: 50px;
+    border-radius: 20px;
+    border: 2px solid var(--rojoOscuro);
+    color: var(--rojoOscuro);
+    background-color: var(--blanco);
+    padding: 8px 0px; 
+    text-align: center;
+}
+.iconify{
+    width: 30px;
+    height: 30px;
+}
+.precio, .cantidad{
+    color: var(--blanco);
+    font-size: 20px;
+    font-weight: 600;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+}
+
+.info-extra{
+    width: 100%;
+    height: 90px;
+    border-radius: 20px 20px 0px 0px;
+    background-color: var(--rojoClaro);
+    /* border-top: 3px solid var(--rojoOscuro);
+    border-left: 3px solid var(--rojoOscuro);
+    border-right: 3px solid var(--rojoOscuro); */
+}
+.info-box{
+    width: 100%;
+    height: 100%;
+}
+.info-text{
+    padding-top: 20px;
+    color: var(--blanco);
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+    font-weight: 600;
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+.purchase-btn{
+    
+}
+.btn{
+    display: block;
+    width: 160px;
+    height: 50px;
+    background-color: var(--rojoOscuro);
+    color: var(--blanco);
+    text-decoration: none;
+    border-radius: 20px;
+    font-size: 20px;
+    margin-top: 15px;
+}
+
+/* reponsive de imagen */

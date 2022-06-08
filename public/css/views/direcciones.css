@@ -1,0 +1,12 @@
+:root {
+    --rojoOscuro: #941C2F;
+    --rojoClaro: #F76C5E; 
+    --blanco: #fff; 
+    --azulOscuro: #122C34; 
+}
+
+html,body{
+    margin: 0px; 
+    padding: 0px;
+    font-family: "MuseoModerno", sans-serif;
+}

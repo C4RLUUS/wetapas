@@ -1,26 +1,58 @@
 <%- include("templates/head", {titulo: "Login | Wetapas"}) %> 
-<link rel="stylesheet" href="/css/index/style.css">
+<link rel="stylesheet" href="../public/css/views/carrito.css">
 </head>
 <body>
-    <h1>carrito</h1>
-    <% if(totalPrice) {%>
-            <h4>El precio total es: <%=totalPrice%>€</h4>
-    <% } %> 
+    <%- include("templates/cabecera") %> 
+    <div class="container">
+        <h1 class="h1-title">Carrito</h1>
+       <% if(productos) {%>
+        <div class="row my-4 gap-3 align-items-center">
+            <% for (let i = 0; i < productos.length; i++) { %>
 
-    <% if(totalItems) {%>
-        <h4>Hay <%=totalItems%> productos: </h4>
-<% } %> 
-
-    <br>
-   <% if(productos) {%>
-        <% for (let i = 0; i < productos.length; i++) { %>
-            <img src=<%=productos[i].item.imagen%> alt="" srcset="">
-            <h3><%=productos[i].item.nombre%></h3>
-            <h3><%=productos[i].item.precio%>€</h3>
-            <h3>Cantidad: <%=productos[i].cantidad%></h3>
-            <h3>Precio Total: <%=productos[i].precio%>€</h3>
-            <br>
-        <a href="/carrito/remove?id=<%=productos[i].item.id%>">Eliminar</a>
-        <%} %> 
-    <% } %>  
+                <div class="product-card col">
+                    <div class="product-body">
+                        <img src="<%= productos[i].item.imagen %> " alt="" srcset="" class="product-img">
+                        <div class="product-text">
+                            <h4 class="product-name"><%= productos[i].item.nombre %></h4>
+                            <div class="product-extra">
+                                <p class="precio"><%= productos[i].item.precio %>€</p>
+                                <p class="cantidad">x <%= productos[i].cantidad %></p>
+                            </div>
+                        </div>
+                        <a href="/carrito/remove?id=<%=productos[i].item.id%>" class="remove-item"><span class="iconify" data-icon="bxs:trash-alt"></span></a>
+                    </div>
+                    <div class="product-footer">
+                        <p class="total-precio">Precio total: <%= productos[i].precio %>€</p>
+                    </div>
+                </div>
+            <%} %> 
+        </div>
+        <% } %>  
+        
+        
+        
+    </div>
+    <div class="info-extra">
+        <div class="row mx-0">
+            <div class="col info-box">
+                <% if(totalItems) {%>
+                    <h4 class="info-text">Hay <%=totalItems%> productos</h4>
+                <% } else { %> 
+                    <h4>Hay 0 productos</h4>
+                <% }%>
+                
+            </div>
+            <div class="col info-box">
+                <% if(totalPrice) {%>
+                    <h4 class="info-text">El precio total es: <%=totalPrice%>€</h4>
+                <% }else{ %>
+                    <h4>El precio total es: 0€</h4>
+              <%  } %> 
+            </div>
+            <div class="col purchase-btn">
+                <a href="http://" class="btn">Comprar</a>
+            </div>
+        </div>
+    </div>
+    <%- include("templates/footer") %> 
 </body>

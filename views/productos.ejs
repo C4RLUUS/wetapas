@@ -10,8 +10,7 @@
         <p class="text-text text-center text-rojoOscuro">Raciones pensadas para tapear al menos dos personas (300gr-400gr)</p>
 
         <div class="container">
-            <div class="row">
-                
+            <div class="row ">
                 <% for (let i = 0; i < productos.length; i++) { %>
                     <div class="product-card col-md-12 col-lg-4 mx-auto mt-4">
                         <a href="/productos/<%=productos[i].id%>" class="text-decoration-none mb-0 pb-0">
@@ -27,7 +26,7 @@
                                 <p class="precio"><%= productos[i].precio%>€</p>
                                 <div class="add-box">
 
-                                    <a href="http://" class="product-btn-drc">Add</a>
+                                    <a href="/carrito/add?id=<%=productos[i].id%>" class="product-btn-drc">Add</a>
                                 </div>
                             </div>
                     </div>
