@@ -34,7 +34,7 @@
     </div>
     <div class="info-extra">
         
-            <div class="">
+            <div class="text-blanco">
                 <% if(totalItems) {%>
                     <h4 class="info-text">Hay <%=totalItems%> productos</h4>
                 <% } else { %> 
@@ -42,7 +42,7 @@
                 <% }%>
                 
             </div>
-            <div class="">
+            <div class="text-blanco">
                 <% if(totalPrice) {%>
                     <h4 class="info-text">El precio total es: <%=totalPrice%>€</h4>
                 <% }else{ %>
@@ -50,7 +50,7 @@
               <%  } %> 
             </div>
             <div class="">
-                <a href="http://" class="btn">Comprar</a>
+                <a href="http://" class="btn-purchase">Comprar</a>
             </div>
     </div>
     <%- include("templates/footer") %> 
