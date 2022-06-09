@@ -33,8 +33,8 @@
         
     </div>
     <div class="info-extra">
-        <div class="row mx-0">
-            <div class="col info-box">
+        
+            <div class="">
                 <% if(totalItems) {%>
                     <h4 class="info-text">Hay <%=totalItems%> productos</h4>
                 <% } else { %> 
@@ -42,17 +42,16 @@
                 <% }%>
                 
             </div>
-            <div class="col info-box">
+            <div class="">
                 <% if(totalPrice) {%>
                     <h4 class="info-text">El precio total es: <%=totalPrice%>€</h4>
                 <% }else{ %>
                     <h4>El precio total es: 0€</h4>
               <%  } %> 
             </div>
-            <div class="col purchase-btn">
+            <div class="">
                 <a href="http://" class="btn">Comprar</a>
             </div>
-        </div>
     </div>
     <%- include("templates/footer") %> 
 </body>
