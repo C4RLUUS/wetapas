@@ -2,22 +2,39 @@
 <link rel="stylesheet" href="../public/css/views/index.css">
 </head>
 <body>
-    <%- include("templates/cabecera") %> 
-    <!-- <h1>Hola chavalada</h1>
-    <nav class="menu">
-        <a href="/sobreNosotros">
-            <h3>Sobre Nosotros</h3>
-        </a><a href="/productos">
-            <h3>Productos</h3>
-        </a><a href="/comoFunciona">
-            <h3>Como Funciona</h3>
-            </a>
-    </nav> -->
+   
+    <% if(locals.totalItems && locals.user) {%>
+    <%- include("templates/cabecera", {user, totalItems}) %> 
+    <% } else if(locals.user) {%>
+        <%- include("templates/cabecera", {user}) %> 
+    <% } else if(locals.totalItems){ %>
+        <%- include("templates/cabecera", {totalItems}) %>
+    <% } else if (!locals.totalItems && !locals.user) { %>
+        <%- include("templates/cabecera") %> 
+    <% } %>
+    
     <main class="main">
         <section>
-            <!-- <div class="img-main">
-                <img src="../public/img/Figura.jpg" alt="" srcset="" class="img-w">
-            </div> -->
+            <div class="container">
+                <div class="row mb-4 mt-4">
+                 <div class="col-md-12 col-lg-6 align-items-center">
+                     <div class="text-header-box">
+                         <h1 class="h1-title">¿Ganas de tapear?</h1>
+ 
+                         <div class="header-list">
+                            <p class="text-list">No temas, se inagura la tienda online que no sabías que necesitarías</p>
+                             <p class="text-list">Come</p>
+                             <p class="text-list">Comparte</p>
+                             <p class="text-list">Disfruta</p>
+                         </div>
+ 
+                     </div>
+                 </div>
+                 <div class="col-md-12 col-lg-6">
+                    <img src="../public/img/carrousel1.jpg" alt="" srcset="" class="header-img">
+                 </div>
+                </div>
+            </div>
         </section>
         <section class="codePost-comprobation">
 
@@ -25,73 +42,88 @@
                 <label for="CodePost" class="text-blanco title">Comprueba tu Código Postal</label>
                 <div class="postcode-input">
                     <input type="number" name="codepost" id="CodePost">
-                    <button type="submit" class="btn-form"><span class="iconify" data-icon="bxs:right-arrow-alt" data-width="40" data-height="40"></span></button>
+                    <button type="submit" class="btn-form"><span class="iconify" data-icon="bxs:right-arrow-alt"></span></button>
                 </div>
             </form>
-            <% if(this.mensaje == true) {%> 
+            <% if(this.mensaje) {%> 
             <p class="text-rojoO"><%= mensaje %></p>
             <% } %> 
 
-            <h4 class="text-blanco semititle text-center ma-1">Si pido ahora, ¿cuánto tardará en llegar mi pedido? 🧐</h4>
+            <h4 class="text-blanco semititle text-center my-4">Si pido ahora, ¿cuánto tardará en llegar mi pedido? 🧐</h4>
         </section>
         <section>
             <div class="container">
-                <h2 class="title text-rojoO ma-1 text-center">¿Tienes ganas de tapear pero no tienes nada que te apetezca en casa? Dí adiós a ese sentimiento
+                <h2 class="title text-rojoO ma-1 text-center">¿No tienes nada que te apetezca en casa? Dí adiós a ese sentimiento
                 </h2>
-                <div class="f-row ma-1">
-                    <div class="icon">
-                        <span class="iconify text-rojoC" data-icon="fluent:cart-16-regular" data-width="40" data-height="40"></span>
-
-                        <h5 class="semititle text-rojoC">Cambiamos la carta cada semana</h5>
+                <div class="row gap-4">
+                    <div class="col-12">
+                        <div class="icon">
+                            <span class="iconify text-rojoC" data-icon="bxs:food-menu" data-width="40" data-height="40"></span>
+    
+                            <h5 class="semititle text-rojoC">Cambiamos la carta cada semana</h5>
+                        </div>
+                        <p class="text text-rojoC row-msg">Cada miércoles cambiamos los productos para que tengas variedad en donde elegir</p>
                     </div>
-                    <p class="text text-rojoC row-msg">Cada miércoles cambiamos los productos para que tengas variedad en donde elegir</p>
-                </div>
-                <div class="f-row ma-1">
-                    <div class="icon">
-                        <span class="iconify text-rojoC" data-icon="icon-park-outline:cook" data-width="40" data-height="40"></span>
+                <!-- </div>
+                <div class="row"> -->
 
-                        <h5 class="semititle text-rojoC">Cocinamos por tí</h5>
+                    <div class="col-12">
+                        <div class="icon">
+                            <span class="iconify text-rojoC" data-icon="icon-park-outline:cook" data-width="40" data-height="40"></span>
+    
+                            <h5 class="semititle text-rojoC">Cocinamos por tí</h5>
+                        </div>
+                        <p class="text text-rojoC row-msg">Cocinamos nuestros productos con ingredientes frescos y de temporada</p>
                     </div>
-                    <p class="text text-rojoC row-msg">Cocinamos nuestros productos con ingredientes frescos y de temporada</p>
-                </div>
-                <div class="f-row ma-1">
-                    <div class="icon">
-                        <span class="iconify text-rojoC" data-icon="carbon:delivery" data-width="40" data-height="40"></span>
+                <!-- </div>
+                <div class="row"> -->
 
-                        <h5 class="semititle text-rojoC">Recibe donde quieras</h5>
+                    <div class="col-12">
+                        <div class="icon">
+                            <span class="iconify text-rojoC" data-icon="carbon:delivery" data-width="40" data-height="40"></span>
+    
+                            <h5 class="semititle text-rojoC">Recibe donde quieras</h5>
+                        </div>
+                        <p class="text text-rojoC row-msg">En la oficina, en casa, en tu casa del pueblo, en donde quieras....</p>
                     </div>
-                    <p class="text text-rojoC row-msg">En la oficina, en casa, en tu casa del pueblo, en donde quieras....</p>
-                </div>
-                <div class="f-row ma-1">
-                    <div class="icon">
-                        <span class="iconify text-rojoC" data-icon="carbon:delivery" data-width="40" data-height="40"></span>
+                <!-- </div>
+                <div class="row"> -->
 
-                        <h5 class="semititle text-rojoC">Recibe donde quieras</h5>
+                    <div class="col-12 mb-4">
+                        <div class="icon">
+                            <span class="iconify text-rojoC" data-icon="akar-icons:star" data-width="40" data-height="40"></span>
+    
+                            <h5 class="semititle text-rojoC">Para chuparse los dedos</h5>
+                        </div>
+                        <p class="text text-rojoC row-msg">Comida casera con ingredientes naturales, siempre cuidando el medio ambiente</p>
                     </div>
-                    <p class="text text-rojoC row-msg">En la oficina, en casa, en tu casa del pueblo, en donde quieras....</p>
                 </div>
 
             </div>
-            <img src="../public/img/banner (1).jpg" alt="" srcset="" class="banner-img">
+            <div class="r-img">
+                <div class="col-12 px-0">
+
+                    <img src="../public/img/banner (1).jpg" alt="" srcset="" class="banner-img">
+                </div>
+            </div>
         </section>
         <section class="community">
-            <div class="container-comunity">
+            <div class="container">
                 <h4 class="title text-blanco text-center pt-5 pb-3">
                     Únete ya a nuestra comunidad
                 </h4>
     
                 <p class="text text-blanco py-4 text-center">Contamos ya con miles de usuarios que disfrutan cada semana de nuevas y deliciosas tapas, ¿a qué estas esperando?¡Únete ya!</p>
 
-                <div class="d-flex justify-content-center">
+                
 
-                    <div class="images gap-2">
+                    <div class="row gap-3 justify-content-center my-4">
     
-                        <img src="../public/img/community-1.jpg" alt="" srcset="" class="col-12 col-lg-6 col-xl-2 img-border-radius">
-                        <img src="../public/img/community-2.jpg" alt="" srcset="" class="col-12 col-lg-6 col-xl-2 img-border-radius">
-                        <img src="../public/img/community-3.jpg" alt="" srcset="" class="col-12 col-lg-6 col-xl-2 img-border-radius">
-                        <img src="../public/img/community-4.jpg" alt="" srcset="" class="col-md-12 col-lg-6 col-xl-2 img-border-radius">
+                        <img src="../public/img/community-1.jpg" alt="" srcset="" class="col-12 col-lg-6 col-xl-3 comunity-img">
+                        <img src="../public/img/community-2.jpg" alt="" srcset="" class="col-12 col-lg-6 col-xl-3 comunity-img">
+                        <img src="../public/img/community-3.jpg" alt="" srcset="" class="col-12 col-lg-6 col-xl-3 comunity-img">
                     </div>
-                </div>
+        
                
 
             </div>
@@ -101,5 +133,5 @@
 
 
     <%- include("templates/footer") %> 
-
+    <script src="../../public/js/menu-cabecera.js"></script>
 </body>

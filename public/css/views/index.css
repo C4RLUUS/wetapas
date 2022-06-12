@@ -16,32 +16,51 @@ html, body{
 
 /* TODO:Main */
 /* figura */
-.main{
-    background-color: #fff;
+.header-img{
     width: 100%;
-    height: auto;  
+    height: 600px;
+    object-fit: cover;  
+    border-radius: 20px;
+    filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.5));
 }
-.img-main{
-   display: flex;
-   justify-content: center;
-   align-items: center;
+
+.text-header-box{
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 40px;
 }
-.img-w{
-    width: 800px;
-    height: 650px;
+.h1-title{
+    color: var(--rojoOscuro);
+    font-size: 48px;
+    font-weight: bolder;
+}
+
+.header-list{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 
 }
 
+.text-list{
+    color: var(--rojoOscuro);
+    font-size: 26px;
+    font-weight: 600;
+}
 
 /* codePost */
 .codePost-comprobation{
     width: 100%;
-    height: 200px;
+    height: auto;
     background-color: var(--rojoClaro);
+    padding: 20px 0px;
 }
 
 .text-blanco{
     color: var(--blanco);
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
 }
 .text-rojoO{
     color: var(--rojoOscuro);
@@ -84,11 +103,12 @@ html, body{
     background-color: var(--rojoOscuro);
     color: var(--blanco);
     border: 0px;
+    z-index: 2;
 }
 
 /* caracteristicas */
-.f-row{
-    width: 80%;
+.row{
+    padding-top: 0px;
     /* background-color: #ccc; */
 }
 .icon{
@@ -100,10 +120,15 @@ html, body{
     padding-left: 50px;
     font-weight: lighter;
 }
+.r-img{
+    width: 100%;
+    margin: 0px;
+}
 .banner-img{
     width: 100%; 
-    height: 500px;
-    object-fit:contain; 
+    height: 100%;
+    object-fit:fill; 
+
 }
 
 
@@ -118,11 +143,10 @@ html, body{
 .container-comunity{
     width: 80%;
 }
-.images{
-    width: 100%;
-    height: auto;
-    
-}
-.img-border-radius{
+
+.comunity-img{
+    filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.5));
     border-radius: 20px;
 }
+
+

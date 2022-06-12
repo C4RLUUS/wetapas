@@ -2,6 +2,15 @@
 <link rel="stylesheet" href="/css/index/style.css">
 </head>
 <body>
+    <% if(locals.totalItems && locals.user) {%>
+        <%- include("templates/cabecera", {user, totalItems}) %> 
+    <% } else if(locals.user) {%>
+            <%- include("templates/cabecera", {user}) %> 
+    <% } else if(locals.totalItems){ %>
+            <%- include("templates/cabecera", {totalItems}) %>
+    <% } else if (!locals.totalItems && !locals.user) { %>
+            <%- include("templates/cabecera") %> 
+    <% } %>
     
     <img src=<%=producto.imagen%> alt="">
     <h2><%=producto.nombre%></h2>

@@ -10,9 +10,19 @@ router.get("/", async (req, res, next) => {
     }
     if(req.query.error){
         let error = req.query.error
-        res.render("signup", {mensaje: error}); 
+        if(req.session.cart){
+            let totalItems = req.session.cart.totalItems
+            res.render('signup', {totalItems, error})
+        }else if(!req.session.cart){
+            res.render("signup", {error}); 
+        }
     }else{
-        res.render("signup")
+        if(req.session.cart){
+            let totalItems = req.session.cart.totalItems
+            res.render('signup', {totalItems})
+        }else if(!req.session.cart){
+            res.render("signup"); 
+        }
     }
    
 

@@ -2,7 +2,11 @@
 <link rel="stylesheet" href="../public/css/views/login.css">
 </head>
 <body>
-    <%- include("templates/cabecera") %> 
+    <%if(locals.totalItems){ %>
+        <%- include("templates/cabecera", {totalItems}) %>
+    <% } else if (!locals.totalItems) { %>
+        <%- include("templates/cabecera") %> 
+    <% } %>
     <main class="main">
         <img src="../public/img/login-img.jpg" alt="" srcset="" class="login-img">
        
@@ -40,5 +44,6 @@
     </main>
 
     <%- include("templates/footer") %> 
+    <script src="../../public/js/menu-cabecera.js"></script>
 
 </body>

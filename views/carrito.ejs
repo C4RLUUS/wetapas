@@ -2,7 +2,15 @@
 <link rel="stylesheet" href="../public/css/views/carrito.css">
 </head>
 <body>
-    <%- include("templates/cabecera") %> 
+    <% if(locals.totalItems && locals.user) {%>
+        <%- include("templates/cabecera", {user, totalItems}) %> 
+    <% } else if(locals.user) {%>
+            <%- include("templates/cabecera", {user}) %> 
+    <% } else if(locals.totalItems){ %>
+            <%- include("templates/cabecera", {totalItems}) %>
+    <% } else if (!locals.totalItems && !locals.user) { %>
+            <%- include("templates/cabecera") %> 
+    <% } %>
     <div class="container">
         <h1 class="h1-title">Carrito</h1>
        <% if(productos) {%>
@@ -50,8 +58,9 @@
               <%  } %> 
             </div>
             <div class="">
-                <a href="http://" class="btn-purchase">Comprar</a>
+                <a href="/carrito/direcciones" class="btn-purchase">Comprar</a>
             </div>
     </div>
     <%- include("templates/footer") %> 
+    <script src="../../public/js/menu-cabecera.js"></script>
 </body>

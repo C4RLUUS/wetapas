@@ -1,14 +1,48 @@
 <header class="header">
-    <div class="menu-izq">
-        <button class="menu"><span class="iconify" data-icon="ant-design:menu-outlined" data-width="40" data-height="40"></span></button>
-        <div class="menu-box">
-            <h2 class="titulo">Wetapas</h2>
-            <div class="line-header"></div>
+        <div class="row align-items-center padding-header pt-4">
+            <div class="col-2">
+                <div class="button-box">
+
+                    <button class="menu-btn-cabecera"><span class="iconify" data-icon="ant-design:menu-outlined" data-width="40" data-height="40"></span></button>
+                </div>
+            </div>
+            <div class="col-6">
+                <a href="/" class="text-decoration-none" >
+
+                    <h2 class="titulo">Wetapas</h2>
+                </a>
+                <div class="line-header"></div>
+            </div>
+            <div class="col-4">
+                <div class="menu-extra">
+                    <% if(locals.totalItems != undefined) {%>
+                        <a href="/carrito" class="header-extra"><span class="iconify" data-icon="fluent:cart-16-regular"></span> <%= totalItems %></a>
+                    <% } else { %> 
+                        <a href="/carrito" class="header-extra"><span class="iconify" data-icon="fluent:cart-16-regular"></span> (0)</a>
+                    <% }%>
+                    <div class="linea-vertical"></div>
+                    
+                    <% if(locals.user != undefined){ %>
+                        <p class="header-extra"><%=user%></p>
+                    <%}%>
+                </div>
+            </div>
+
         </div>
-    </div>
-    <div class="menu-drch">
+    
+    <!-- <div class="menu-drch">
         <a href="http://" class="btn-Header">Carrito</a>
         <a href="http://" class="btn-Header">Login</a>
         <a href="http://" class="btn-Header">Registro</a>
+    </div> -->
+    <div class="menu-txt d-none">
+        <div class="linea-blanca"></div>
+        <a href="/" class="menu-link mt-3">Home</a>
+        <a href="/sobrenosotros" class="menu-link">Sobre nosotros</a>
+        <a href="/comofunciona" class="menu-link">¿Cómo funciona?</a>
+        <a href="/productos" class="menu-link">Productos</a>
+        <a href="/carrito" class="menu-link d-none">Carrito</a>
+        <a href="/login" class="menu-link">Iniciar sesión</a>
+        <a href="/signup" class="menu-link mb-3">Registro</a>
     </div>
 </header>

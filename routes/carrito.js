@@ -77,7 +77,14 @@ router.get("/direcciones", async (req, res) => {
       let direcciones = response.data.direccion
       //poder utilizar las direcciones ya creadas con solo un click
       console.log(direcciones)
-      res.render("direcciones", {direcciones})
+      
+      if(req.session.user && req.session.cart){
+        let user = req.session.user.firstName; 
+        let totalItems = req.session.cart.totalItems
+        res.render("direcciones", {direcciones, user, totalItems})
+      }else{
+        res.redirect("/")
+      }
   
     }catch(err){
       console.log(err)
@@ -86,9 +93,9 @@ router.get("/direcciones", async (req, res) => {
   }); 
   
   router.post("/direcciones", async (req, res) =>{
+    console.log(req.body)
     try{
       if(req.body.idDireccion){
-        console.log(req.body.idDireccion)
         let id = req.body.idDireccion
         let url = `http://127.0.0.1:8000/api/direcciones/mostrar/${req.session.user.id}/${id}`
         const response = await axios.get(url)
@@ -96,7 +103,7 @@ router.get("/direcciones", async (req, res) => {
         req.session.direccion = direccion
         req.session.save( () => {
     
-          res.redirect("/productos/pedido") 
+          res.redirect("/carrito/pedido") 
         })
   
       }else{
@@ -155,9 +162,15 @@ router.get("/direcciones", async (req, res) => {
       console.log(req.session)
       let direccion = req.session.direccion
       let cart = req.session.cart
-      let user = req.session.user
-    
-      res.render("pedidos", {user, cart, direccion, ids})
+      let usuario = req.session.user
+
+      if(req.session.user && req.session.cart){
+        let user = req.session.user.firstName; 
+        let totalItems = req.session.cart.totalItems
+        res.render("pedidos", {usuario, cart, user, totalItems, direccion, ids})
+      }else{
+        res.redirect("/")
+      }
   
     }catch(err){
       console.log(err)

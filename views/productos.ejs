@@ -2,7 +2,15 @@
 <link rel="stylesheet" href="../public/css/views/productos.css"> 
 </head>
 <body>
-    <%- include("templates/cabecera") %>
+    <% if(locals.totalItems && locals.user) {%>
+        <%- include("templates/cabecera", {user, totalItems}) %> 
+        <% } else if(locals.user) {%>
+            <%- include("templates/cabecera", {user}) %> 
+        <% } else if(locals.totalItems){ %>
+            <%- include("templates/cabecera", {totalItems}) %>
+        <% } else if (!locals.totalItems && !locals.user) { %>
+            <%- include("templates/cabecera") %> 
+        <% } %>
     <main class="main">
 
         <h1 class="text-center text-title text-rojoOscuro">Tapas únicas</h1>
@@ -37,4 +45,5 @@
     </main> 
 
     <%- include("templates/footer") %> 
+    <script src="../../public/js/menu-cabecera.js"></script>
 </body>

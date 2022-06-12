@@ -16,7 +16,21 @@ router.get("/", async (req, res) => {
             
         productos = response.data.producto; 
             // console.log(productos)
-        res.render("productos", {productos})
+        
+            if(req.session.user){
+                let user = req.session.user.firstName; 
+                if(req.session.cart){
+                    let totalItems = req.session.cart.totalItems
+                    res.render("productos", {user, totalItems, productos})
+                }else{
+                    res.render("productos", {user,productos})
+                }
+            }else if(req.session.cart){
+                let totalItems = req.session.cart.totalItems
+                res.render("productos", {totalItems, productos})
+            }else if(!req.session.user && !req.session.cart){
+                res.render("productos", {productos})
+            }
             
        
     }catch(err){
@@ -199,7 +213,20 @@ router.get("/:id", async (req, res) => {
             const response = await axios.get(url_productoPorId); 
             let producto = response.data.producto
             console.log(producto); 
-            res.render("productoDetalle", {producto}); 
+            if(req.session.user){
+                let user = req.session.user.firstName; 
+                if(req.session.cart){
+                    let totalItems = req.session.cart.totalItems
+                    res.render("productoDetalle", {user, totalItems, producto})
+                }else{
+                    res.render("productoDetalle", {user, producto})
+                }
+            }else if(req.session.cart){
+                let totalItems = req.session.cart.totalItems
+                res.render("productoDetalle", {totalItems, producto})
+            }else if(!req.session.user && !req.session.cart){
+                res.render("productoDetalle", {producto}); 
+            }
 
         }catch(err){
             console.log(err)

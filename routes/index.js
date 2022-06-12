@@ -5,11 +5,23 @@ const axios = require('axios').default;
 
 
 router.get("/", async (req, res) => {
+
+        if(req.session.user){
+            let user = req.session.user.firstName; 
+            if(req.session.cart){
+                let totalItems = req.session.cart.totalItems
+                res.render('index', {user, totalItems})
+            }else{
+                res.render('index', {user})
+            }
+        }else if(req.session.cart){
+            let totalItems = req.session.cart.totalItems
+            res.render('index', {totalItems})
+        }else if(!req.session.user && !req.session.cart){
+            res.render('index')
+        }
     
-        console.log("index")
-        console.log(req.session)
-   
-    res.render('index')
+        
 }); 
 
 router.post("/", async (req, res) =>{
@@ -32,8 +44,20 @@ router.post("/", async (req, res) =>{
         if(valido == true){
             mensaje = "A ese código postal sí podemos hacer entregas, disfrútalo 😉"; 
         }
-    
-        res.render('index', {mensaje})
+        if(req.session.user){
+            let user = req.session.user.firstName; 
+            if(req.session.cart){
+                let totalItems = req.session.cart.totalItems
+                res.render('index', {user, totalItems, mensaje})
+            }else{
+                res.render('index', {user, mensaje})
+            }
+        }else if(req.session.cart){
+            let totalItems = req.session.cart.totalItems
+            res.render('index', {totalItems, mensaje})
+        }else if(!req.session.user && !req.session.cart){
+            res.render('index', {mensaje, mensaje})
+        }
 
     }catch(err){
         console.log(err)

@@ -1,0 +1,114 @@
+:root {
+    --rojoOscuro: #941C2F;
+    --rojoClaro: #F76C5E; 
+    --blanco: #fff; 
+    --azulOscuro: #122C34; 
+}
+
+html,body{
+    margin: 0px; 
+    padding: 0px;
+    font-family: "MuseoModerno", sans-serif;
+}
+
+.h1-title{
+    font-size: 40px;
+    font-weight: bolder;
+    color: var(--rojoOscuro);
+    text-align: center;
+    margin-top: 30px;
+}
+
+.text-user{
+    margin-top: 20px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 28px;
+    color: var(--rojoOscuro);
+
+}
+
+.resume-box{
+    border-radius: 40px;
+    background-color: var(--rojoClaro);
+    filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.5));
+
+}
+
+.cart-box{
+    margin:15px; 
+}
+
+.cart-title, .direction-title{
+    color: var(--blanco);
+    text-align: center;
+    font-weight: 600;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+    margin: 20px 0px;
+    font-size: 36px;
+}
+
+.info-extra{
+    margin: 25px 0px; 
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.total{
+    color: var(--blanco);
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+}
+
+.product-card{
+    background-color: var(--rojoOscuro);
+    border-radius: 15px;
+    padding: 10px 15px; 
+}
+
+.product-body{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+}
+
+.text-card, .direction-text{
+    color: var(--blanco);
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+}
+
+.direction-box{
+    margin: 15px;
+}
+
+.direction-body{
+    margin-top: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.btn-submit{
+    display: block;
+    width: 90%;
+    height: auto;
+    background-color: var(--rojoOscuro);
+    color: var(--blanco);
+    text-decoration: none;
+    border-radius: 20px;
+    font-size: 20px;
+    text-align: center;
+    border: 3px solid var(--rojoOscuro);
+    margin: 20px auto;
+    padding: 20px;
+    filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.5));
+}
+
+.btn-submit:hover{
+    background-color: var(--blanco);
+    border: 3px solid var(--rojoOscuro);
+    color: var(--rojoOscuro);
+    filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.5));
+}

@@ -11,9 +11,21 @@ router.get("/", async (req, res, next) => {
     }
     if(req.query.error){
         let error = req.query.error
-        res.render("login", {mensaje: error}); 
+        
+        if(req.session.cart){
+            let totalItems = req.session.cart.totalItems
+            res.render('login', {totalItems, error})
+        }else if(!req.session.cart){
+            res.render("login", {error}); 
+        }
     }else{
-        res.render("login")
+        if(req.session.cart){
+            let totalItems = req.session.cart.totalItems
+            res.render('login', {totalItems})
+        }else if(!req.session.cart){
+            res.render("login"); 
+        }
+    
     }
    
 

@@ -1,44 +1,71 @@
 <%- include("templates/head", {titulo: "Pedido | Wetapas"}) %> 
+<link rel="stylesheet" href="../public/css/views/pedido.css">
 </head>
 <body>
-    <h1>Pedido</h1>
-
-    <% if(user){ %> 
-        <h2>Ya queda poco <%=user.firstName%>, completa este último formulario y ya solo te quedaría disfrutar de tu pedido</h2>
+    <% if(locals.totalItems && locals.user) {%>
+        <%- include("templates/cabecera", {user, totalItems}) %> 
     <% } %> 
+    <div class="container">
 
-    <h2>Resumen del pedido:</h2>
-    <% if(cart){ %> 
-        <h3>Carrito de compra</h3>
-        <h4>Tienes <%= cart.totalItems %> productos para comprar</h4>
-        <h4>Total a pagar: <%= cart.totalPrice %></h4>
-
-       <% ids.forEach(element => { %>
-            <% console.log("Holaaaaaaaaaaa") %> 
-            <% if(cart.items[element] != undefined){ %>
-            <% console.log(cart.items[element]) %> 
-            <h4>Nombre: <%= cart.items[element].item.nombre %></h4>
-            <h4>Precio: <%= cart.items[element].item.precio %>€</h4>
-            <h4>Cantidad: <%= cart.items[element].cantidad %></h4>
-            <h4>Precio total de este producto: <%= cart.items[element].precio%>€</h4>
-            
-            <% console.log(cart.items[element].item) %> 
-            <% }%>     
-      <% }); %> 
-        
-    <% } %> 
-
-    <% if(direccion){ %> 
-        <h3>Direccion a la que se va a enviar</h3>
-        <p>Ciudad: <%= direccion.ciudad%></p> 
-        <p>Código postal: <%= direccion.postcode %></p> 
-        <p><%= direccion.direccion1  %></p> 
-        <p>Telefono: <%= direccion.telefono %></p> 
-        <p>Nombre y apellidos: <%= direccion.firstName %> <%= direccion.lastName %></p> 
-    <% } %> 
+        <h1 class="h1-title">Pedido</h1>
     
-    <form action="/carrito/pedido" method="post">
+        <% if(user){ %> 
+            <h2 class="text-user"><%=usuario.firstName%>, este es el resumen de tu compra</h2>
+        <% } %> 
+    
+        <!-- <h2 class="resume-text">Resumen del pedido:</h2> -->
+        <div class="row my-4 gap-4">
+            <div class="col-md-12 col-lg-4 mx-auto resume-box gap-4">
+                <% if(cart){ %> 
+                    <div class="cart-box">
+                        <h3 class="cart-title">Carrito de compra</h3>
+                        <div class="info-extra">
 
-    </form>
+                            <h4 class="total">Tienes <%= cart.totalItems %> productos para comprar</h4>
+                            <h4 class="total">Total a pagar: <%= cart.totalPrice %>€</h4>
+                        </div>
+                        
+                        <div class="row gap-3">
 
+                            <% ids.forEach(element => { %>
+                                <% if(cart.items[element] != undefined){ %>
+                                    <div class="product-card col-12 mx-auto ">
+                                        <h4 class="text-card text-center"><%= cart.items[element].item.nombre %></h4>
+                                        <div class="product-body">
+
+                                            <h4 class="text-card"><%= cart.items[element].item.precio %>€</h4>
+                                            <h4 class="text-card">x <%= cart.items[element].cantidad %></h4>
+                                        </div>
+                                    </div>
+                                    <% }%>     
+                                    <% }); %> 
+                        </div>
+                    </div>
+                    
+                <% } %> 
+            </div>
+            <div class="col-md-12 col-lg-6 resume-box">
+
+                <% if(direccion){ %> 
+                    <div class="direction-box">
+                        <h3 class="direction-title">Dirección a la que se va a enviar</h3>
+                        <div class="direction-body">
+                            <h4 class="direction-text"><%= direccion.proviencia%>, <%= direccion.ciudad%>, <%= direccion.postcode %></h4> 
+                            <h4 class="direction-text"><%= direccion.direccion1  %></h4> 
+                            <h4 class="direction-text"><%= direccion.telefono %></h4> 
+                            <h4 class="direction-text"><%= direccion.firstName %> <%= direccion.lastName %></h4> 
+                        </div>
+
+                    </div>
+                <% } %> 
+            </div>
+        </div>
+    
+        
+        <form action="/carrito/pedido" method="post">
+            <button type="submit" class="btn-submit">Confirmar compra</button>
+        </form>
+    </div>
+    <%- include("templates/footer") %> 
+    <script src="../../public/js/menu-cabecera.js"></script>
 </body>
