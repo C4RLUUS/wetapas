@@ -7,6 +7,7 @@ const axios = require('axios').default;
 
 
 const url_productosActivos = "http://127.0.0.1:8000/api/productos/listar/activos"
+var producto
 
 router.get("/", async (req, res) => {
     try{
@@ -37,6 +38,42 @@ router.get("/", async (req, res) => {
         console.log(err)
     }
 }); 
+
+router.post("/add-review", async(req, res) => {
+    if(!req.session.user){
+        res.redirect("/login")
+    }else{
+        console.log("review")
+        console.log(producto)
+        console.log(req.body); 
+        let url_crearOpinion = "http://127.0.0.1:8000/api/reviews/crear"
+
+        // validar Campos
+
+        let user_id = req.session.user.id
+        let producto_id = producto.id
+        let desc = req.body.desc
+        let rating = parseInt(req.body.rating)
+        
+        try{
+            const response = await axios.post(url_crearOpinion, {
+                id_user:user_id, 
+                id_producto:producto_id, 
+                descripcion: desc, 
+                rating:rating, 
+                deleted:0
+            }).then((response) => {
+                let msg = response.data.message
+                console.log(msg)
+                res.redirect(`/productos/${producto_id}`)
+            })
+            
+        }catch(err){
+            console.log(err)
+        }
+    }
+
+})
 
 // router.get("/carrito", async (req, res) => {
 //     if (!req.session.cart) {
@@ -211,21 +248,35 @@ router.get("/:id", async (req, res) => {
         try{
             let url_productoPorId =`http://127.0.0.1:8000/api/productos/mostrar/${req.params.id}`
             const response = await axios.get(url_productoPorId); 
-            let producto = response.data.producto
-            console.log(producto); 
+            producto = response.data.producto
+            console.log(producto);
+            
+            let opiniones =[] 
+            let url_opiniones_del_producto = `http://127.0.0.1:8000/api/reviews/listar/produtos/${req.params.id}`
+            const opinion_query = await axios.get(url_opiniones_del_producto); 
+            opiniones = opinion_query.data.review
+
+           
+            for (let i = 0; i < opiniones.length; i++) {
+                let url_nombre_user = `http://127.0.0.1:8000/api/usuarios/mostrar/${opiniones[i].id_user}`
+                let result = await axios.get(url_nombre_user)
+                let nombre = result.data.usuario.firstName
+                opiniones[i].nombre_user = nombre
+            }
+
             if(req.session.user){
                 let user = req.session.user.firstName; 
                 if(req.session.cart){
                     let totalItems = req.session.cart.totalItems
-                    res.render("productoDetalle", {user, totalItems, producto})
+                    res.render("productoDetalle", {user, totalItems, producto, opiniones})
                 }else{
-                    res.render("productoDetalle", {user, producto})
+                    res.render("productoDetalle", {user, producto, opiniones})
                 }
             }else if(req.session.cart){
                 let totalItems = req.session.cart.totalItems
-                res.render("productoDetalle", {totalItems, producto})
+                res.render("productoDetalle", {totalItems, producto, opiniones})
             }else if(!req.session.user && !req.session.cart){
-                res.render("productoDetalle", {producto}); 
+                res.render("productoDetalle", {producto, opiniones}); 
             }
 
         }catch(err){

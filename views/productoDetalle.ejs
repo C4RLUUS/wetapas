@@ -1,5 +1,5 @@
 <%- include("templates/head", {titulo: "Productos | Wetapas"}) %> 
-<link rel="stylesheet" href="/css/index/style.css">
+<link rel="stylesheet" href="../public/css/views/productodetalle.css">
 </head>
 <body>
     <% if(locals.totalItems && locals.user) {%>
@@ -12,8 +12,93 @@
             <%- include("templates/cabecera") %> 
     <% } %>
     
-    <img src=<%=producto.imagen%> alt="">
-    <h2><%=producto.nombre%></h2>
-    <p><%=producto.descripcion%></p>
-   
+    <main>
+        <div class="container">
+                <div class="row mb-4 gap-3">
+                        <div class="col-md-12 col-lg-5">
+        
+                                <img src=<%=producto.imagen%> alt="" class="product-img">
+                        </div>
+                        <div class="col-md-12 col-lg-5">
+                                <h2 class="product-title"><%=producto.nombre%></h2>
+                                <p class="product-desc"><%=producto.descripcion%></p>
+
+                                <p class="product-desc"><%=producto.precio%>€/unidad</p>
+                                
+                        </div>
+                        <div class="col-12">
+                                <a href="/carrito/add?id=<%=producto.id%>" class="btn-purchase">Añadir al carrito</a>
+                        </div>
+                </div>
+
+                <div class="review">
+                        <div class="review-header">
+                                <div class="h-line"></div>
+                                <!-- modal -->
+                                <button class="review-add" id="review-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><span class="iconify" data-icon="akar-icons:plus"></span></button>
+                        </div>
+                        <div class="review-body">
+                                <div class="row gap-4">
+                                        <% if(locals.opiniones){ %>
+                                                <%  opiniones.forEach(element => { %>
+                                                        
+                                                        <div class="review-card col-12">
+                                                               <div class="review-body">
+        
+                                                                <h3 class="review-name"><%= element.nombre_user%></h3>
+        
+                                                                <p class="review-desc"><%= element.descripcion%></p>
+        
+                                                                <h3 class="rating"><b> <%= element.rating %> </b>/5</h3>
+        
+        
+                                                               </div>
+                                                        </div>
+                                             <%   }); %> 
+                                        <% } %> 
+                                </div>
+                        </div>
+                </div>
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="staticBackdropLabel">Agregar una opinión</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <form action="/productos/add-review" method="post">
+                            <div class="modal-body">
+                                        <div class="review-box">
+
+                                                <div class="opinion">
+                                                        <label for="opinion" class="label-review">Comentario</label>
+                                                        <textarea name="desc" id="opinion" cols="30" rows="3" placeholder="Escriba una opinión"></textarea>
+                                                </div>
+                                                <div class="review-rating">
+                                                        <label for="rating" class="label-review">Valoración</label>
+                                                        <select name="rating" id="rating">
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                                <option value="4">4</option>
+                                                                <option value="5">5</option>
+                                                        </select>
+                                                </div>
+                                        </div>
+                                        
+                                </div>
+                                <div class="modal-footer">
+                                        <button type="button" class="btn cerrar-btn" data-bs-dismiss="modal">Cerrar</button>
+                                        <button type="submit" class="btn btn-submit">Añadir opinión</button>
+                                </div>
+                        </form>
+                          </div>
+                        </div>
+                </div>
+
+        </div>
+    </main>
+
+    <%- include("templates/footer") %> 
+    <script src="../../public/js/menu-cabecera.js"></script>
 </body>
