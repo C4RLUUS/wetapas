@@ -93,3 +93,13 @@ html,body{
     padding-left: 10px;
     height: 32px;
 }
+
+.alerta{
+    margin: 20px 0px;
+   background-color: var(--rojoOscuro);
+   border: 3px solid var(--rojoOscuro);
+   color: var(--blanco);
+   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+   font-size: 24px;
+   text-align: center;
+}

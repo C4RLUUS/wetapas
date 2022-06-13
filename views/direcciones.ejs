@@ -43,6 +43,12 @@
                                 <input type="text" name="apellido" id="apellido" class="medium-input">
                             </div>
 
+                            <div class="apellido-input">
+                                <label for="dni" class="text-label">Dni</label>
+                                <input type="text" name="dni" id="dni" class="small-input">
+                            </div>
+
+
                             <div class="pais-input">
                                 <label for="pais" class="text-label">País</label>
                                 <select name="pais" id="pais" class="small-input">
@@ -87,6 +93,12 @@
                         </div>
                     </div>
                 </div>
+
+                <% if(locals.error) {%> 
+                    <div class="alert alert-danger alerta" role="alert" id="alert">
+                        <%= error %> 
+                    </div>
+                <% } %> 
                     
                 <div class="info-extra" >
         
@@ -101,4 +113,5 @@
     <%- include("templates/footer") %>
     <script src="../public/js/direcciones.js"></script>
     <script src="../../public/js/menu-cabecera.js"></script>
+    <script src="../public/js/alerts.js"></script>
 </body>

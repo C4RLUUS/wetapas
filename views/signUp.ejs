@@ -42,6 +42,13 @@
         </div>
     </main>
 
+    <% if(locals.error) {%> 
+        <div class="alert alert-danger alerta" role="alert" id="alert">
+            <%= error %> 
+        </div>
+    <% } %> 
+
     <%- include("templates/footer") %> 
     <script src="../../public/js/menu-cabecera.js"></script>
+    <script src="../public/js/alerts.js"></script>
 </body>

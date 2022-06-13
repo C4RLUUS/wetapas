@@ -9,6 +9,8 @@
     <% } %>
     <main class="main">
         <img src="../public/img/login-img.jpg" alt="" srcset="" class="login-img">
+
+        
        
         <div class="box"> 
             <div class="form-box d-flex justify-content-center flex-column">
@@ -25,25 +27,19 @@
                             </div>
                             <button type="submit" class="btn-submit mb-4 mx-auto">Enviar</button>
                         </form>
-                    <% if(this.mensaje == true) {%> 
-                    <p><%= mensaje %></p>
-                    <% } %> 
-            </div>
-        </div>
-        
-        <!-- <div class="rojo">
-            <div class="azul">
-               
-                <div class="texto-prueba">
-                    <p>Hola</p>
+                    </div>
                 </div>
-                
-            </div>
-        </div> -->
+
         
     </main>
+    <% if(locals.error) {%> 
+        <div class="alert alert-danger alerta" role="alert" id="alert">
+            <%= error %> 
+        </div>
+    <% } %> 
 
     <%- include("templates/footer") %> 
     <script src="../../public/js/menu-cabecera.js"></script>
+    <script src="../public/js/alerts.js"></script>
 
 </body>

@@ -81,7 +81,13 @@ router.get("/direcciones", async (req, res) => {
       if(req.session.user && req.session.cart){
         let user = req.session.user.firstName; 
         let totalItems = req.session.cart.totalItems
-        res.render("direcciones", {direcciones, user, totalItems})
+        if(req.query.error){
+          let error = req.query.error
+          res.render("direcciones", {direcciones, user, totalItems, error})
+        }else{
+
+          res.render("direcciones", {direcciones, user, totalItems})
+        }
       }else{
         res.redirect("/")
       }
@@ -117,27 +123,85 @@ router.get("/direcciones", async (req, res) => {
         let ciudad = req.body.ciudad
         let postcode = req.body.postcode
         let direccion = req.body.direccion
-        //validar
-        let url_crear_direccion = "http://127.0.0.1:8000/api/direcciones/crear"
-        const response = await axios.post(url_crear_direccion, {
-          id_user:req.session.user.id, 
-          pais:pais, 
-          proviencia:provincia, 
-          ciudad:ciudad, 
-          postcode:postcode, 
-          direccion1:direccion, 
-          telefono:telefono, 
-          dni:dni,
-          firstName:name, 
-          lastName:apellido, 
-          deleted:0
-        })
-        let direccionRes = response.data.direccion[0]
-        req.session.direccion = direccionRes
-        req.session.save( () => {
+
+        var va_string = false
+        let re_string = /([A-Z])\w+/
+        if(re_string.exec(name)){
+            if(re_string.exec(apellido)){
+              if(re_string.exec(direccion)){
+                va_string = true 
+              }
     
-          res.redirect("/carrito/pedido") 
-        })
+            }
+        }
+
+        var va_telefono = false
+        let re_telefono = /^\d{9}$/
+        if(re_telefono.exec(telefono)){
+            va_telefono = true
+        }
+
+        var va_dni = false
+        let letras = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E', 'T'];
+        let re_dni = /^\d{8}[A-Z]$/
+        if( re_dni.exec(dni) ) {
+          if(dni.charAt(8) != letras[(valor.substring(0, 8))%23]){
+            va_dni = true
+          }
+        }
+
+        var va_postcode = false
+        let re_postcode = /^(?:0[1-9]|[1-4]\d|5[0-2])\d{3}$/
+        if(re_postcode.exec(postcode)){
+          va_postcode = true
+        }
+
+
+
+        if(va_string == true && va_telefono == true && va_postcode == true && va_dni == true){
+
+          let url_crear_direccion = "http://127.0.0.1:8000/api/direcciones/crear"
+          const response = await axios.post(url_crear_direccion, {
+            id_user:req.session.user.id, 
+            pais:pais, 
+            proviencia:provincia, 
+            ciudad:ciudad, 
+            postcode:postcode, 
+            direccion1:direccion, 
+            telefono:telefono, 
+            dni:dni,
+            firstName:name, 
+            lastName:apellido, 
+            deleted:0
+          })
+          let direccionRes = response.data.direccion[0]
+          req.session.direccion = direccionRes
+          req.session.save( () => {
+      
+            res.redirect("/carrito/pedido") 
+          })
+        }else{
+          let error;
+          if(va_dni == false){
+            error = "El dni es incorrecto"
+            res.redirect("/carrito/direcciones?error=" + error)
+          }
+
+          if(va_postcode == false){
+            error = "El código postal es incorrecto"
+            res.redirect("/carrito/direcciones?error=" + error)
+          }
+
+          if(va_string == false){
+            error = "El nombre o el apellido o la dirección es incorrecta"
+            res.redirect("/carrito/direcciones?error=" + error)
+          }
+
+          if(va_telefono == false){
+            error = "El teléfono es incorrecto"
+            res.redirect("/carrito/direcciones?error=" + error)
+          }
+        }
       }
   
   

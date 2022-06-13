@@ -17,7 +17,19 @@ router.get("/", async (req, res) => {
             
         productos = response.data.producto; 
             // console.log(productos)
+        //     for (let i = 0; i < productos.length; i++) {
+        //     let url_avg_rating = `http://127.0.0.1:8000/api/reviews/avg/produtos/${productos[i].id}`
+        //     let result = await axios.get(url_avg_rating)
+        //     console.log("second")
+        //     console.log(result.data.review)
+        //     let avgrating = parseInt(result.data.review.avgrating)
+        //     console.log(avgrating)
+        //     productos[i].avg_rating = avgrating
+            
+        // }
         
+        console.log("first")
+        console.log(productos)
             if(req.session.user){
                 let user = req.session.user.firstName; 
                 if(req.session.cart){

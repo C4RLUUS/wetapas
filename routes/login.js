@@ -37,7 +37,6 @@ router.post("/", async (req, res, next) => {
         let password = req.body.password; 
 
         // validacion
-
         let usuarios = []
       
     
@@ -48,10 +47,9 @@ router.post("/", async (req, res, next) => {
         let valido = false; 
         let emailCorrecto = false
 
-        console.log(usuarios)
+       
     
         for (let i = 0; i < usuarios.length; i++) {
-            console.log(usuarios[i].id)
             if(usuarios[i].email == email ){
                 emailCorrecto = true
                 if(usuarios[i].password == password){
@@ -63,8 +61,8 @@ router.post("/", async (req, res, next) => {
             }
             
         }
-        console.log("llega a hacer antes de la validación")
-        if(valido == true){
+        
+        if(valido == true && emailCorrecto == true){
     
             url_userId = `http://127.0.0.1:8000/api/usuarios/mostrar/${req.session.user}`
             let responseUser = await axios.get(url_userId); 

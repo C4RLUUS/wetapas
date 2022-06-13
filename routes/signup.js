@@ -37,7 +37,31 @@ router.post("/", async (req, res, next) => {
         let password = req.body.password;
         let telefono = req.body.telefono 
     
-    
+        var va_email = false
+        let re_email = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
+        if(re_email.exec(email)){
+            va_email = true
+        }
+
+        var va_password = false
+        let re_password = /^[A-Za-z]\w{7,15}$/
+        if(re_password.exec(password)){
+            va_password = true
+        }
+
+        var va_telefono = false
+        let re_telefono = /^\d{9}$/
+        if(re_telefono.exec(telefono)){
+            va_telefono = true
+        }
+
+        var va_string = false
+        let re_string = /([A-Z])\w+/
+        if(re_string.exec(name)){
+            if(re_string.exec(apellido)){
+                va_string = true 
+            }
+        }
     
         let valido = true;
         //validar
@@ -53,7 +77,7 @@ router.post("/", async (req, res, next) => {
         console.log(emailCorrecto)
         console.log(valido)
 
-        if(valido == true && emailCorrecto==true){
+        if(valido == true && emailCorrecto==true && va_email==true && va_password == true && va_telefono ==true && va_string ==true){
             console.log("Entró en el registro")
             let url_user_registro ="http://127.0.0.1:8000/api/usuarios/crear"; 
            const registroUser = await axios.post(url_user_registro, {
@@ -76,12 +100,31 @@ router.post("/", async (req, res, next) => {
             let error;
             if(emailCorrecto == false){
     
-                error = "El email es incorrecto"
-                res.redirect("/signup?error=" + error); 
-            }else{
-                error = "La contrasena es incorrecta"; 
+                error = "El email ya existe"
                 res.redirect("/signup?error=" + error); 
             }
+
+            if(va_email == false){
+                error = "El email is incorrecto"
+                res.redirect("/signup?error=" + error);
+            }
+
+            if(va_password == false){
+                error = "La contraseña es incorrecta"
+                res.redirect("/signup?error=" + error);
+            }
+
+            if(va_telefono == false){
+                error = "El teléfono es incorrecto"
+                res.redirect("/signup?error=" + error);
+            }
+
+            if(va_string == false){
+                error = "El nombre o el apellido está incompleto"
+                res.redirect("/signup?error=" + error);
+            }
+
+
         }
 
     }catch(err){
