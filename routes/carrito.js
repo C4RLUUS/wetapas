@@ -214,24 +214,27 @@ router.get("/direcciones", async (req, res) => {
 //   PEDIDO
   router.get("/pedido", async (req, res) => {
     try{
-      let query = "http://127.0.0.1:8000/api/productos/listar/activos/"
-      const response = await axios.get(query)
-      let products = response.data.producto
-  
-      let ids = []
-      products.forEach(element => {
-        ids.push(element.id)
-      });
-  
-      console.log(req.session)
-      let direccion = req.session.direccion
-      let cart = req.session.cart
-      let usuario = req.session.user
+      if(req.session.direccion && req.session.user && req.session.cart){
 
-      if(req.session.user && req.session.cart){
+        let query = "http://127.0.0.1:8000/api/productos/listar/activos/"
+        const response = await axios.get(query)
+        let products = response.data.producto
+    
+        let ids = []
+        products.forEach(element => {
+          ids.push(element.id)
+        });
+    
+        console.log(req.session)
+        let direccion = req.session.direccion
+        let cart = req.session.cart
+        let usuario = req.session.user
+  
+       
         let user = req.session.user.firstName; 
         let totalItems = req.session.cart.totalItems
         res.render("pedidos", {usuario, cart, user, totalItems, direccion, ids})
+        
       }else{
         res.redirect("/")
       }
