@@ -249,12 +249,71 @@ router.get("/direcciones", async (req, res) => {
   
   router.post("/pedido", async (req, res) => {
   
-    console.log(req.session)
-    let direccion = req.session.direccion
-    let cart = req.session.cart
-    let user = req.session.user
+    // console.log(req.session)
+    // let direccion = req.session.direccion
+    // let cart = req.session.cart
+    // let user = req.session.user
   
-    res.render("pedidos", {user, cart, direccion})
+    // res.render("pedidos", {user, cart, direccion})
+    try{
+
+      let id_carrito
+      let id_direccion
+      var id_pedido
+      let url_crear_pedido= "http://127.0.0.1:8000/api/pedidos/crear"
+      const respone_pedido = await axios.post(url_crear_pedido, {
+          id_user:req.session.user.id, 
+          id_carrito:id_carrito, 
+          id_direccion:id_direccion, 
+          current_state:"Email enviado", 
+          precio_total:req.session.cart.totalPrice, 
+          productos_total:req.session.cart.totalItems
+      }).then((response => {
+        id_pedido = response.data.pedido.id;
+      }))
+
+      let url_crear_pedido_detalle = "http://127.0.0.1:8000/api/pedidoDetalles/crear"
+      const response_pedido_detalle = await axios.post(url_crear_pedido_detalle, {
+        id_pedido:id_pedido, 
+        id_producto:req.session.cart.items.id, 
+        nombre_producto:req.session.cart.items.nombre, 
+        cantidad_producto:req.session.cart.items.cantidad, 
+        precio_producto:req.session.cart.items.precio
+      }).then((response) => {
+          // req.session.cart.destroy()
+          // req.session.direccion.destroy()
+          // req.session
+      })
+
+      let smtpTransport = nodemailer.createTransport({
+        host:"smtp-mail.outlook.com", 
+        port:587, 
+        secure:false, 
+        auth:{
+            user:"icarluus@outlook.com", 
+            pass:"Imagar@2022"
+        }, 
+        tls:{
+            rejectUnauthorized:false
+        }
+    })
+
+    let contentHTML = `
+    <h1>HolaMundilloo</h1>    `
+
+    const info = await smtpTransport.sendMail({
+        from:"icarluus@outlook.com",
+        to:"icarluus@outlook.com", 
+        subject:"Prueba de Email",
+        text:"Hola mundoo"
+
+    })
+
+      
+
+    }catch(err){
+
+    }
   
   })
 
