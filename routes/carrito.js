@@ -114,8 +114,8 @@ router.get("/direcciones", async (req, res) => {
   
       }else{
   
-        let name = req.body.firstName
-        let apellido = req.body.lastName
+        let name = req.body.nombre
+        let apellido = req.body.apellido
         let telefono = req.body.telefono
         let dni = req.body.dni
         let pais = req.body.pais
@@ -124,16 +124,18 @@ router.get("/direcciones", async (req, res) => {
         let postcode = req.body.postcode
         let direccion = req.body.direccion
 
-        var va_string = false
-        let re_string = /([A-Z])\w+/
-        if(re_string.exec(name)){
-            if(re_string.exec(apellido)){
-              if(re_string.exec(direccion)){
-                va_string = true 
-              }
+        console.log("req.body");
+        console.log(req.body);
+        // var va_string = false
+        // let re_string = /([A-Z])\w+/
+        // if(re_string.exec(name)){
+        //     if(re_string.exec(apellido)){
+        //       if(re_string.exec(direccion)){
+        //         va_string = true 
+        //       }
     
-            }
-        }
+        //     }
+        // }
 
         var va_telefono = false
         let re_telefono = /^\d{9}$/
@@ -145,7 +147,7 @@ router.get("/direcciones", async (req, res) => {
         let letras = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E', 'T'];
         let re_dni = /^\d{8}[A-Z]$/
         if( re_dni.exec(dni) ) {
-          if(dni.charAt(8) != letras[(valor.substring(0, 8))%23]){
+          if(dni.charAt(8) == letras[(dni.substring(0, 8))%23]){
             va_dni = true
           }
         }
@@ -158,7 +160,7 @@ router.get("/direcciones", async (req, res) => {
 
 
 
-        if(va_string == true && va_telefono == true && va_postcode == true && va_dni == true){
+        if( va_telefono == true && va_postcode == true && va_dni == true){
 
           let url_crear_direccion = "http://127.0.0.1:8000/api/direcciones/crear"
           const response = await axios.post(url_crear_direccion, {
@@ -192,10 +194,10 @@ router.get("/direcciones", async (req, res) => {
             res.redirect("/carrito/direcciones?error=" + error)
           }
 
-          if(va_string == false){
-            error = "El nombre o el apellido o la dirección es incorrecta"
-            res.redirect("/carrito/direcciones?error=" + error)
-          }
+          // if(va_string == false){
+          //   error = "El nombre o el apellido o la dirección es incorrecta"
+          //   res.redirect("/carrito/direcciones?error=" + error)
+          // }
 
           if(va_telefono == false){
             error = "El teléfono es incorrecto"

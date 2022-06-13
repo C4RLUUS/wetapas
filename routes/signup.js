@@ -36,6 +36,7 @@ router.post("/", async (req, res, next) => {
         let email = req.body.email; 
         let password = req.body.password;
         let telefono = req.body.telefono 
+        console.log(req.body);
     
         var va_email = false
         let re_email = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/

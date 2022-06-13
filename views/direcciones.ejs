@@ -35,37 +35,37 @@
 
                             <div class="nombre-input">
                                 <label for="nombre" class="text-label">Nombre</label>
-                                <input type="text" name="nombre" id="nombre" class="medium-input">
+                                <input type="text" name="nombre" id="nombre" class="medium-input" required>
                             </div>
 
                             <div class="apellido-input">
                                 <label for="apellido" class="text-label">Apellidos</label>
-                                <input type="text" name="apellido" id="apellido" class="medium-input">
+                                <input type="text" name="apellido" id="apellido" class="medium-input" required>
                             </div>
 
                             <div class="apellido-input">
                                 <label for="dni" class="text-label">Dni</label>
-                                <input type="text" name="dni" id="dni" class="small-input">
+                                <input type="text" name="dni" id="dni" class="small-input" required>
                             </div>
 
 
                             <div class="pais-input">
                                 <label for="pais" class="text-label">País</label>
-                                <select name="pais" id="pais" class="small-input">
+                                <select name="pais" id="pais" class="small-input" required>
                                     <option value="España">España</option>
                                 </select>
                             </div>
 
                             <div class="provincia-input">
                                 <label for="provincia" class="text-label">Provincia</label>
-                                <select name="provincia" id="provincia" class="small-input">
+                                <select name="provincia" id="provincia" class="small-input" required>
                                     <option value="Madrid">Madrid</option>
                                 </select>
                             </div>
 
                             <div class="ciudad-input">
                                 <label for="ciudad" class="text-label">Ciudad</label>
-                                <select name="ciudad" id="ciudad" class="small-input">
+                                <select name="ciudad" id="ciudad" class="small-input" required>
                                     <option value="Alcorcón">Alcorcón</option>
                                     <option value="Madrid">Madrid</option>
                                 </select>
@@ -73,17 +73,17 @@
 
                             <div class="postcode-input">
                                 <label for="postcode" class="text-label">Código postal</label>
-                                <input type="number" name="postcode" id="postcode" class="small-input">
+                                <input type="number" name="postcode" id="postcode" class="small-input" required>
                             </div>
 
                             <div class="direccion-input">
                                 <label for="direccion" class="text-label">Dirección</label>
-                                <input type="number" name="direccion" id="direccion" class="medium-input">
+                                <input type="text" name="direccion" id="direccion" class="medium-input" required>
                             </div>
 
                             <div class="telefono-input">
                                 <label for="telefono" class="text-label">Teléfono</label>
-                                <input type="number" name="teléfono" placeholder="+34" id="telefono" class="medium-input">
+                                <input type="number" name="telefono" placeholder="+34" id="telefono" class="medium-input" required>
                             </div>
 
                             <% if(this.mensaje == true) {%> 
