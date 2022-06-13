@@ -31,7 +31,7 @@
                         </a>
                         <div class="linea-card"></div>
                             <div class="d-flex">  
-                                <p class="precio"><%= productos[i].precio%>€</p>
+                                <p class="precio"><%= parseFloat(productos[i].precio).toFixed(2);%>€</p>
                                 <div class="add-box">
 
                                     <a href="/carrito/add?id=<%=productos[i].id%>" class="product-btn-drc">Add</a>

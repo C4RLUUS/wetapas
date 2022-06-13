@@ -14,6 +14,7 @@
     <div class="container">
         <h1 class="h1-title">Carrito</h1>
        <% if(productos) {%>
+        <% if(productos.length > 0) {%> 
         <div class="row my-4 gap-3 align-items-center">
             <% for (let i = 0; i < productos.length; i++) { %>
 
@@ -23,18 +24,21 @@
                         <div class="product-text">
                             <h4 class="product-name"><%= productos[i].item.nombre %></h4>
                             <div class="product-extra">
-                                <p class="precio"><%= productos[i].item.precio %>€</p>
+                                <p class="precio"><%= parseFloat(productos[i].item.precio).toFixed(2) %>€</p>
                                 <p class="cantidad">x <%= productos[i].cantidad %></p>
                             </div>
                         </div>
                         <a href="/carrito/remove?id=<%=productos[i].item.id%>" class="remove-item"><span class="iconify" data-icon="bxs:trash-alt"></span></a>
                     </div>
                     <div class="product-footer">
-                        <p class="total-precio">Precio total: <%= productos[i].precio %>€</p>
+                        <p class="total-precio">Precio total: <%= parseFloat(productos[i].precio).toFixed(2) %>€</p>
                     </div>
                 </div>
-            <%} %> 
+            <% } %> 
         </div>
+        <% }else{ %>
+            <h2 class="text-no-product">No hay productos en el carrito</h2>
+        <% } %>  
         <% } %>  
         
         
@@ -52,7 +56,7 @@
             </div>
             <div class="text-blanco">
                 <% if(totalPrice) {%>
-                    <h4 class="info-text">El precio total es: <%=totalPrice%>€</h4>
+                    <h4 class="info-text">El precio total es: <%= parseFloat(totalPrice).toFixed(2)%>€</h4>
                 <% }else{ %>
                     <h4>El precio total es: 0€</h4>
               <%  } %> 

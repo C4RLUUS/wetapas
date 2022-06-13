@@ -22,7 +22,7 @@
                         <div class="info-extra">
 
                             <h4 class="total">Tienes <%= cart.totalItems %> productos para comprar</h4>
-                            <h4 class="total">Total a pagar: <%= cart.totalPrice %>€</h4>
+                            <h4 class="total">Total a pagar: <%= parseFloat(cart.totalPrice).toFixed(2) %>€</h4>
                         </div>
                         
                         <div class="row gap-3">
@@ -33,7 +33,7 @@
                                         <h4 class="text-card text-center"><%= cart.items[element].item.nombre %></h4>
                                         <div class="product-body">
 
-                                            <h4 class="text-card"><%= cart.items[element].item.precio %>€</h4>
+                                            <h4 class="text-card"><%= parseFloat(cart.items[element].item.precio).toFixed(2) %>€</h4>
                                             <h4 class="text-card">x <%= cart.items[element].cantidad %></h4>
                                         </div>
                                     </div>
