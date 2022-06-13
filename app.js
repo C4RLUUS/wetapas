@@ -40,6 +40,7 @@ var auth = function(req, res, next) {
 
 //Rutas de la web
 app.use('/', require('./routes/index'));
+app.use('/sobrenosotros', require('./routes/sobreNosotros'));
 app.use('/productos', require('./routes/productos'));
 app.use('/login', require('./routes/login'));
 app.use('/signup', require('./routes/signup'));

@@ -45,11 +45,13 @@
                     <button type="submit" class="btn-form"><span class="iconify" data-icon="bxs:right-arrow-alt"></span></button>
                 </div>
             </form>
-            <% if(this.mensaje) {%> 
-            <p class="text-rojoO"><%= mensaje %></p>
-            <% } %> 
-
+        
             <h4 class="text-blanco semititle text-center my-4">Si pido ahora, ¿cuánto tardará en llegar mi pedido? 🧐</h4>
+            <% if(locals.mensaje) {%> 
+                <div class="alert alert-danger alerta" role="alert" id="alert">
+                    <%= mensaje %> 
+                </div>
+            <% } %> 
         </section>
         <section>
             <div class="container">
@@ -134,4 +136,5 @@
 
     <%- include("templates/footer") %> 
     <script src="../../public/js/menu-cabecera.js"></script>
+    <script src="../public/js/alerts.js"></script>
 </body>

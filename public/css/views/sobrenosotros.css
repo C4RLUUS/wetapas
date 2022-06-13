@@ -1,0 +1,63 @@
+:root {
+    --rojoOscuro: #941C2F;
+    --rojoClaro: #F76C5E; 
+    --blanco: #fff; 
+    --azulOscuro: #122C34; 
+}
+
+html, body{
+    font-family: "MuseoModerno", sans-serif; 
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+}
+
+.sobreNosotros-section{
+    width: 100%;
+    background-color: var(--rojoOscuro);
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 30px 20px ;
+    border-radius: 40px;
+}
+
+.title{
+    font-size: 36px;
+    color: var(--blanco);
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+    font-weight: bolder;
+}
+
+.text-paragraph{
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--blanco);
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+    margin-bottom: 0px;
+}
+
+.btn-section{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn{
+    display: block;
+    text-decoration: none;
+    background-color: var(--blanco);
+    border: 2px solid var(--rojoOscuro);
+    color: var(--rojoOscuro);
+    font-size: 22px; 
+    padding: 10px;
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: var(--rojoOscuro);
+    border: 2px solid var(--blanco);
+    color: var(--blanco);
+}
