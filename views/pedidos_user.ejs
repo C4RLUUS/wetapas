@@ -18,15 +18,17 @@
             <div class="row mt-4">
                 <div class="col-12 pedido-box px-0">
                     <div class="pedido-header">
-                        <h4 class="text-header"><b></b> productos con un importe total de <b>€</b></h4>
+                        <h4 class="text-header"><b><%= pedidos_user[i].productos_total%></b> productos con un importe total de <b><%= pedidos_user[i].precio_total%>€</b></h4>
                     </div>
                     <div class="pedido-body">
                         <!-- for productos -->
+                        <h3 class="text-center body-text">Productos:</h3>
                         <% for (let j = 0; j < pedidos_productos_array.length; j++) { %> 
                         <div class="card-producto">
-                            <h4 class="name"><%= pedidos_productos_array[j].nombre_producto%></h4>
-                            <h4 class="cantidad">X <%= pedidos_productos_array[j].cantidad_producto%></h4>
-                            <h4 class="precio"><%= pedidos_productos_array[j].precio_producto%>€</h4>
+            
+                            <h4 class="name"><%= pedidos_productos_array[j][0].nombre_producto%></h4>
+                            <h4 class="cantidad">X <%= pedidos_productos_array[j][0].cantidad_producto%></h4>
+                            <h4 class="precio"><%= pedidos_productos_array[j][0].precio_producto%>€</h4>
                         </div>
                         <!-- else productos -->
                         <% } %> 
