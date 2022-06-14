@@ -71,6 +71,58 @@ router.post("/", async (req, res) =>{
 
 }); 
 
+router.get("/user/mispedidos", async(req, res) => {
+    try{
+
+        if(req.session.user){
+
+            let url_pedido = `http://127.0.0.1:8000/api/pedidos/user/${req.session.user.id}`
+            const pedidos = await axios.get(url_pedido)
+            let pedidos_user = []
+            pedidos_user = pedidos.data.pedido
+
+           
+            const pedidos_productos_array = []
+        
+            const productos_each_pedido = async () =>{
+                try{
+
+                    pedidos_user.map( async(element) => {
+
+                        let id_pedido = element.id
+                        let productos_query = `http://127.0.0.1:8000/api/pedidoDetalles/listarpedido/${id_pedido}`
+                        await axios.get(productos_query).then((response) =>{
+                            console.log("Entra")
+                            pedidos_productos_array = response.data.pedido_detalle
+                            console.log("Array")
+                            console.log(pedidos_productos_array)
+                        })
+                        
+                    }) 
+                        
+                    
+
+                }catch(err){
+                    console.log(err)
+                }
+            }
+
+            productos_each_pedido()
+
+
+            return res.render("pedidos_user", {pedidos_user, pedidos_productos_array})
+            
+
+           
+        }
+
+
+
+    }catch(err){
+        console.log(err)
+    }
+})
+
 router.get("/user/logout", async (req, res) => {
     req.session.destroy()
     return res.redirect("/")

@@ -1,0 +1,48 @@
+<%- include("templates/head", {titulo: "Mi primer sitio web"}) %> 
+<link rel="stylesheet" href="../public/css/views/pedidos_user.css">
+</head>
+<body>
+   
+    <% if(locals.totalItems && locals.user) {%>
+    <%- include("templates/cabecera", {user, totalItems}) %> 
+    <% } else if(locals.user) {%>
+        <%- include("templates/cabecera", {user}) %> 
+    <% } %>
+
+    <main class="main">
+        <div class="container">
+            <h1 class="title">Mis pedidos</h1>
+            <!-- for pedidos  -->
+            <% if(locals.pedidos_user){ %> 
+                <% for (let i = 0; i < pedidos_user.length; i++) {%> 
+            <div class="row mt-4">
+                <div class="col-12 pedido-box px-0">
+                    <div class="pedido-header">
+                        <h4 class="text-header"><b></b> productos con un importe total de <b>€</b></h4>
+                    </div>
+                    <div class="pedido-body">
+                        <!-- for productos -->
+                        <% for (let j = 0; j < pedidos_productos_array.length; j++) { %> 
+                        <div class="card-producto">
+                            <h4 class="name"><%= pedidos_productos_array[j].nombre_producto%></h4>
+                            <h4 class="cantidad">X <%= pedidos_productos_array[j].cantidad_producto%></h4>
+                            <h4 class="precio"><%= pedidos_productos_array[j].precio_producto%>€</h4>
+                        </div>
+                        <!-- else productos -->
+                        <% } %> 
+                    </div>
+                    <div class="pedido-footer">
+                        <h4 class="fecha">Será entregado de 24h a 48h después de realizar el pedido</h4>
+                    </div>
+                </div>
+            </div>
+                <% } %> 
+            <% } %> <!-- else pedidos -->
+        </div>
+    </main>
+
+    <%- include("templates/footer") %> 
+    <script src="../../public/js/menu-cabecera.js"></script>
+    <script src="../public/js/alerts.js"></script>
+</body>
+</html>
