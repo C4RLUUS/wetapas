@@ -2,6 +2,9 @@
 <link rel="stylesheet" href="../public/css/views/index.css">
 </head>
 <body>
+    <% if(locals.mensajito){ %> 
+        <div class="background-shadow"></div>
+    <% } %> 
    
     <% if(locals.totalItems && locals.user) {%>
     <%- include("templates/cabecera", {user, totalItems}) %> 
@@ -35,6 +38,11 @@
                  </div>
                 </div>
             </div>
+            <% if(locals.mensajito){ %> 
+                <div class="alerta-msg" role="alert" id="alerta_msg">
+                    <%= mensajito %>
+                </div>
+            <% } %> 
         </section>
         <section class="codePost-comprobation">
 
@@ -130,6 +138,7 @@
 
             </div>
         </section>
+        
     </main>
 
 

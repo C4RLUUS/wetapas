@@ -6,25 +6,48 @@ const axios = require('axios').default;
 
 router.get("/", async (req, res) => {
     
-        console.log(req.session)
         if(req.session.user){
            
             let user = req.session.user.firstName; 
             if(req.session.cart){
                 let totalItems = req.session.cart.totalItems
-                
-                res.render('index', {user, totalItems})
+
+                if(req.query.msg){
+                let mensajito = req.query.msg
+                res.render('index', {user, totalItems, mensajito})
+                }else{
+
+                    res.render('index', {user, totalItems})
+                }
             }else{
-                
-                res.render('index', {user})
+                if(req.query.msg){
+                    let mensajito = req.query.msg
+                    res.render('index', {user, mensajito})
+                }else{
+                    
+                    res.render('index', {user})
+                }
             }
         }else if(req.session.cart){
            
             let totalItems = req.session.cart.totalItems
-            res.render('index', {totalItems})
-        }else if(!req.session.user && !req.session.cart){
+            if(req.query.msg){
+                let mensajito = req.query.msg
+                res.render('index', {totalItems,mensajito })
+            }else{
+                
+                res.render('index', {totalItems})
+            }
             
-            res.render('index')
+        }else if(!req.session.user && !req.session.cart){
+            if(req.query.msg){
+                let mensajito = req.query.msg
+                res.render('index', {mensajito})
+            }else{
+                
+                res.render('index')
+            }
+            
         }
     
         

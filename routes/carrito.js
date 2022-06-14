@@ -409,8 +409,8 @@ router.get("/direcciones", async (req, res) => {
 
 //     console.log('Message sent: ' + info.response);
 // });
-
-    return res.redirect("/")
+    let msg = "Se ha creado el pedido con éxito"
+    return res.redirect("/?msg=" + msg )
     
 
     }catch(err){
