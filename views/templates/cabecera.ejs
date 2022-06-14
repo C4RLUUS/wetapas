@@ -23,7 +23,15 @@
                     <div class="linea-vertical"></div>
                     
                     <% if(locals.user != undefined){ %>
-                        <p class="header-extra"><%=user%></p>
+                        <!-- Example single danger button -->
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            <%= user %>
+                            </button>
+                            <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/user/logout">Cerrar sesion</a></li>
+                            </ul>
+                        </div>
                     <%}%>
                 </div>
             </div>
