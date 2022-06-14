@@ -131,6 +131,8 @@
     font-size: 30px;
 }
 
+
+
 @media(max-width:520px){
     .titulo{
         font-size: 24px;
