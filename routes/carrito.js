@@ -8,27 +8,45 @@ const nodemailer = require('nodemailer');
 const url_productosActivos = "http://127.0.0.1:8000/api/productos/listar/activos"
 
 router.get("/", async (req, res) => {
+  let carritoExiste = false;
   if(req.session.user){
     let user = req.session.user.firstName; 
+    carritoExiste = true
     if(req.session.cart){
         let totalItems = req.session.cart.totalItems
-        res.render("productoDetalle", {user, totalItems, producto, opiniones})
+        var cart = new Cart(req.session.cart);
+        let productos = cart.getItems(); 
+        let totalPrice = parseFloat(req.session.cart.totalPrice).toFixed(2)
+      res.render('carrito', {
+        productos, totalItems, totalPrice, user, carritoExiste 
+      });
+   
     }else{
-        res.render("productoDetalle", {user, producto, opiniones})
+      
+      let totalItems = 0
+        let productos = null
+        let totalPrice = 0
+
+      res.render("carrito", {user, productos, totalItems, totalPrice, carritoExiste})
     }
 }else if(req.session.cart){
-    let totalItems = req.session.cart.totalItems
-    res.render("productoDetalle", {totalItems, producto, opiniones})
+  let totalItems = req.session.cart.totalItems
+  var cart = new Cart(req.session.cart);
+  let productos = cart.getItems(); 
+  let totalPrice = parseFloat(req.session.cart.totalPrice).toFixed(2)
+  carritoExiste = true
+    res.render("carrito", {totalItems, productos, totalPrice, carritoExiste})
 }else if(!req.session.user && !req.session.cart){
-    res.render("productoDetalle", {producto, opiniones}); 
+        let totalItems = 0
+        let productos = null
+        let totalPrice = 0
+    res.render("carrito", {productos, totalItems,totalPrice, carritoExiste}); 
 } 
-      var cart = new Cart(req.session.cart);
-      res.render('carrito', {
-        productos: cart.getItems(),
-        totalPrice: cart.totalPrice,
-        totalItems: cart.totalItems
-      });
-    }); 
+}); 
+
+   
+
+      
 
 
 router.get("/add", async (req, res) => {
@@ -382,6 +400,5 @@ router.get("/direcciones", async (req, res) => {
 
     }
   
-  })
-
+  }); 
 module.exports = router;

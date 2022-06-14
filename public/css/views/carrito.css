@@ -173,11 +173,16 @@ html,body{
 }
 
 .text-no-product{
-    color: var(--rojoClaro);
+    color: var(--rojoOscuro);
     margin: 20px 0px;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+    /* text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5); */
     font-weight: 600;
     font-size: 40px;
+    text-align: center;
+}
+
+.warning{
+    color: var(--rojoOscuro);
 }
 
 @media (max-width:767px){
