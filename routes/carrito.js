@@ -127,7 +127,7 @@ router.get("/direcciones", async (req, res) => {
   
   router.post("/direcciones", async (req, res) =>{
     try{
-      console.log(req.body);
+  
       if(req.body.idDireccion){
         let id = req.body.idDireccion
         let url = `http://127.0.0.1:8000/api/direcciones/mostrar/${req.session.user.id}/${id}`
@@ -136,7 +136,7 @@ router.get("/direcciones", async (req, res) => {
         req.session.direccion = direccion
         req.session.save( () => {
     
-          res.redirect("/carrito/pedido") 
+          return res.redirect("/carrito/pedido") 
         })
   
       }else if(!req.body.idDireccion && (req.body.nombre != '' || req.body.apellido != '' || req.body.dni != '' || req.body.postcode != '' || req.body.direccion != '' || req.body.telefono != '')){
@@ -180,7 +180,18 @@ router.get("/direcciones", async (req, res) => {
         var va_postcode = false
         let re_postcode = /^(?:0[1-9]|[1-4]\d|5[0-2])\d{3}$/
         if(re_postcode.exec(postcode)){
-          va_postcode = true
+          let postcode_array = []
+          let url_postcodes = "http://127.0.0.1:8000/api/postcodes/listar"; 
+          let response = await axios.get(url_postcodes)
+          postcode_array = response.data.postcode
+
+          console.log(postcode_array)
+          postcode_array.forEach(element => {
+            console.log(element.code)
+            if(element.code == req.body.postcode){
+              va_postcode = true
+            }
+        });
         }
 
 
@@ -206,19 +217,19 @@ router.get("/direcciones", async (req, res) => {
             req.session.direccion = direccionRes
             req.session.save( () => {
         
-              res.redirect("/carrito/pedido") 
+              return res.redirect("/carrito/pedido") 
             })
           })
         }else{
           let error;
           if(va_dni == false){
             error = "El dni es incorrecto"
-            res.redirect("/carrito/direcciones?error=" + error)
+            return res.redirect("/carrito/direcciones?error=" + error)
           }
 
           if(va_postcode == false){
             error = "El código postal es incorrecto"
-            res.redirect("/carrito/direcciones?error=" + error)
+            return res.redirect("/carrito/direcciones?error=" + error)
           }
 
           // if(va_string == false){
@@ -228,13 +239,13 @@ router.get("/direcciones", async (req, res) => {
 
           if(va_telefono == false){
             error = "El teléfono es incorrecto"
-            res.redirect("/carrito/direcciones?error=" + error)
+            return res.redirect("/carrito/direcciones?error=" + error)
           }
         }
       }else if(!req.body.idDireccion && (req.body.nombre == '' && req.body.apellido == '' && req.body.dni == '' && req.body.postcode == '' && req.body.direccion == '' && req.body.telefono == '')){
             let error
             error = "Selecciona una dirección o crea una nueva"
-            res.redirect("/carrito/direcciones?error=" + error)
+            return res.redirect("/carrito/direcciones?error=" + error)
       }
   
   

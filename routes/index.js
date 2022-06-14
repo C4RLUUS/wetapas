@@ -6,7 +6,7 @@ const axios = require('axios').default;
 
 router.get("/", async (req, res) => {
     
-    
+        console.log(req.session)
         if(req.session.user){
            
             let user = req.session.user.firstName; 
