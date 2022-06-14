@@ -3,7 +3,7 @@ const router = express.Router();
 const session = require('express-session')
 const axios = require('axios').default;
 var Cart = require("../models/carts")
-const nodemailer = require('nodemailer')
+const nodemailer = require('nodemailer');
 
 const url_productosActivos = "http://127.0.0.1:8000/api/productos/listar/activos"
 
@@ -331,38 +331,44 @@ router.get("/direcciones", async (req, res) => {
 
           delete req.session.cart 
           delete req.session.direccion
-          return res.redirect("/")
+          // return res.redirect("/")
         }catch(err){
           console.log(err)
         }
       }
     pedido_detalle()
-      console.log("creó pedido-detalle")
-      console.log(req.session)
-    //   let smtpTransport = nodemailer.createTransport({
-    //     host:"smtp-mail.outlook.com", 
-    //     port:587, 
-    //     secure:false, 
-    //     auth:{
-    //         user:"icarluus@outlook.com", 
-    //         pass:"Imagar@2022"
-    //     }, 
-    //     tls:{
-    //         rejectUnauthorized:false
-    //     }
-    // })
+      
+    var transporter = nodemailer.createTransport({
+      host: "smtp-mail.outlook.com", // hostname
+      secureConnection: false, // TLS requires secureConnection to be false
+      port: 587, // port for secure SMTP
+      tls: {
+         ciphers:'SSLv3'
+      },
+      auth: {
+          user: 'icarluus@outlook.com',
+          pass: 'Imagar@2022'
+      }
+  });
+  
+  // setup e-mail data, even with unicode symbols
+  var mailOptions = {
+      from: 'icarluus@outlook.com', // sender address (who sends)
+      to: 'icarluus@outlook.com', // list of receivers (who receives)
+      subject: 'Hello ', // Subject line
+      text: 'Hello world ', // plaintext body
+      html: '<b>Hello world </b><br> This is the first email sent with Nodemailer in Node.js' // html body
+  };
 
-    // let contentHTML = `
-    // <h1>HolaMundilloo</h1>    `
+  transporter.sendMail(mailOptions, function(error, info){
+    if(error){
+        return console.log(error);
+    }
 
-    // const info = await smtpTransport.sendMail({
-    //     from:"icarluus@outlook.com",
-    //     to:"icarluus@outlook.com", 
-    //     subject:"Prueba de Email",
-    //     text:"Pedido realizado"
+    console.log('Message sent: ' + info.response);
+});
 
-    // })
-
+    return res.redirect("/")
     
 
     }catch(err){
