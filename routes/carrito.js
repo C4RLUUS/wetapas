@@ -127,6 +127,7 @@ router.get("/direcciones", async (req, res) => {
   
   router.post("/direcciones", async (req, res) =>{
     try{
+      console.log(req.body);
       if(req.body.idDireccion){
         let id = req.body.idDireccion
         let url = `http://127.0.0.1:8000/api/direcciones/mostrar/${req.session.user.id}/${id}`
@@ -138,7 +139,7 @@ router.get("/direcciones", async (req, res) => {
           res.redirect("/carrito/pedido") 
         })
   
-      }else if(req.body){
+      }else if(!req.body.idDireccion && (req.body.nombre != '' || req.body.apellido != '' || req.body.dni != '' || req.body.postcode != '' || req.body.direccion != '' || req.body.telefono != '')){
   
         let name = req.body.nombre
         let apellido = req.body.apellido
@@ -230,7 +231,7 @@ router.get("/direcciones", async (req, res) => {
             res.redirect("/carrito/direcciones?error=" + error)
           }
         }
-      }else if(!req.body){
+      }else if(!req.body.idDireccion && (req.body.nombre == '' && req.body.apellido == '' && req.body.dni == '' && req.body.postcode == '' && req.body.direccion == '' && req.body.telefono == '')){
             let error
             error = "Selecciona una dirección o crea una nueva"
             res.redirect("/carrito/direcciones?error=" + error)
