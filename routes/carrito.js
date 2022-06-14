@@ -37,6 +37,7 @@ router.get("/", async (req, res) => {
   carritoExiste = true
     res.render("carrito", {totalItems, productos, totalPrice, carritoExiste})
 }else if(!req.session.user && !req.session.cart){
+  console.log(carritoExiste);
         let totalItems = 0
         let productos = null
         let totalPrice = 0
@@ -137,7 +138,7 @@ router.get("/direcciones", async (req, res) => {
           res.redirect("/carrito/pedido") 
         })
   
-      }else{
+      }else if(req.body){
   
         let name = req.body.nombre
         let apellido = req.body.apellido
@@ -229,6 +230,10 @@ router.get("/direcciones", async (req, res) => {
             res.redirect("/carrito/direcciones?error=" + error)
           }
         }
+      }else if(!req.body){
+            let error
+            error = "Selecciona una dirección o crea una nueva"
+            res.redirect("/carrito/direcciones?error=" + error)
       }
   
   
