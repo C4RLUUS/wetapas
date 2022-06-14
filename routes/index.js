@@ -5,19 +5,25 @@ const axios = require('axios').default;
 
 
 router.get("/", async (req, res) => {
-
+    
+    console.log(req.session)
         if(req.session.user){
+            console.log("Hay user")
             let user = req.session.user.firstName; 
             if(req.session.cart){
                 let totalItems = req.session.cart.totalItems
+                console.log("Hay totalItems?")
                 res.render('index', {user, totalItems})
             }else{
+                console.log("Solo user?")
                 res.render('index', {user})
             }
         }else if(req.session.cart){
+            console.log("carrito?")
             let totalItems = req.session.cart.totalItems
             res.render('index', {totalItems})
         }else if(!req.session.user && !req.session.cart){
+            console.log("No hay nada???")
             res.render('index')
         }
     

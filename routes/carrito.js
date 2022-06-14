@@ -3,6 +3,7 @@ const router = express.Router();
 const session = require('express-session')
 const axios = require('axios').default;
 var Cart = require("../models/carts")
+const nodemailer = require('nodemailer')
 
 const url_productosActivos = "http://127.0.0.1:8000/api/productos/listar/activos"
 
@@ -59,7 +60,7 @@ router.get("/remove", async (req, res) => {
 
 // DIRECCIONES
 router.get("/direcciones", async (req, res) => {
-    console.log(req.session)
+    
     if(!req.session.cart){
       res.redirect("/productos")
     }else{
@@ -76,7 +77,7 @@ router.get("/direcciones", async (req, res) => {
       const response = await axios.get(url_traer_direcciones_User)
       let direcciones = response.data.direccion
       //poder utilizar las direcciones ya creadas con solo un click
-      console.log(direcciones)
+    
       
       if(req.session.user && req.session.cart){
         let user = req.session.user.firstName; 
@@ -99,7 +100,6 @@ router.get("/direcciones", async (req, res) => {
   }); 
   
   router.post("/direcciones", async (req, res) =>{
-    console.log(req.body)
     try{
       if(req.body.idDireccion){
         let id = req.body.idDireccion
@@ -124,8 +124,6 @@ router.get("/direcciones", async (req, res) => {
         let postcode = req.body.postcode
         let direccion = req.body.direccion
 
-        console.log("req.body");
-        console.log(req.body);
         // var va_string = false
         // let re_string = /([A-Z])\w+/
         // if(re_string.exec(name)){
@@ -175,12 +173,14 @@ router.get("/direcciones", async (req, res) => {
             firstName:name, 
             lastName:apellido, 
             deleted:0
-          })
-          let direccionRes = response.data.direccion[0]
-          req.session.direccion = direccionRes
-          req.session.save( () => {
-      
-            res.redirect("/carrito/pedido") 
+          }).then((response) => {
+
+            let direccionRes = response.data.direccion[0]
+            req.session.direccion = direccionRes
+            req.session.save( () => {
+        
+              res.redirect("/carrito/pedido") 
+            })
           })
         }else{
           let error;
@@ -227,12 +227,11 @@ router.get("/direcciones", async (req, res) => {
           ids.push(element.id)
         });
     
-        console.log(req.session)
         let direccion = req.session.direccion
         let cart = req.session.cart
         let usuario = req.session.user
   
-       
+
         let user = req.session.user.firstName; 
         let totalItems = req.session.cart.totalItems
         res.render("pedidos", {usuario, cart, user, totalItems, direccion, ids})
@@ -249,19 +248,56 @@ router.get("/direcciones", async (req, res) => {
   
   router.post("/pedido", async (req, res) => {
   
-    // console.log(req.session)
-    // let direccion = req.session.direccion
-    // let cart = req.session.cart
-    // let user = req.session.user
-  
-    // res.render("pedidos", {user, cart, direccion})
+
     try{
 
-      let id_carrito
-      let id_direccion
+      var id_carrito
+      let url_crear_carrito = "http://127.0.0.1:8000/api/carritos/crear"
+      const result_carrito = await axios.post(url_crear_carrito, {
+        id_user: req.session.user.id
+      }).then((response) => {
+        id_carrito = response.data.carrito.id
+      })
+
+      var productos = []
+      
+      
+ 
+      for(var i in req.session.cart.items){
+        productos.push([i, req.session.cart.items[i]])
+      }
+      
+      let url_crear_prodcuto_carrito = "http://127.0.0.1:8000/api/carritosProductos/crear"
+
+      const producto_detalle = async () =>{
+        try{
+
+          console.log("Se queda fuera?")
+          
+          productos.map(async(element) => {
+            
+             await axios.post(url_crear_prodcuto_carrito, {
+              id_carrito: id_carrito, 
+              id_producto: element[1].item.id, 
+              cantidad:element[1].cantidad
+            })
+    
+          })
+        }catch(err){
+          console.log(err)
+        }
+      }
+      // await Promise.all(productos.map( async(element) =>{
+        
+      
+      // }))
+      producto_detalle()
+    
+
+      let id_direccion = req.session.direccion.id
       var id_pedido
       let url_crear_pedido= "http://127.0.0.1:8000/api/pedidos/crear"
-      const respone_pedido = await axios.post(url_crear_pedido, {
+       await axios.post(url_crear_pedido, {
           id_user:req.session.user.id, 
           id_carrito:id_carrito, 
           id_direccion:id_direccion, 
@@ -272,44 +308,62 @@ router.get("/direcciones", async (req, res) => {
         id_pedido = response.data.pedido.id;
       }))
 
+  
+
+
       let url_crear_pedido_detalle = "http://127.0.0.1:8000/api/pedidoDetalles/crear"
-      const response_pedido_detalle = await axios.post(url_crear_pedido_detalle, {
-        id_pedido:id_pedido, 
-        id_producto:req.session.cart.items.id, 
-        nombre_producto:req.session.cart.items.nombre, 
-        cantidad_producto:req.session.cart.items.cantidad, 
-        precio_producto:req.session.cart.items.precio
-      }).then((response) => {
-          // req.session.cart.destroy()
-          // req.session.direccion.destroy()
-          // req.session
-      })
+      const pedido_detalle = async () =>{
+        try{
 
-      let smtpTransport = nodemailer.createTransport({
-        host:"smtp-mail.outlook.com", 
-        port:587, 
-        secure:false, 
-        auth:{
-            user:"icarluus@outlook.com", 
-            pass:"Imagar@2022"
-        }, 
-        tls:{
-            rejectUnauthorized:false
+    
+          
+          productos.map(async(element) => {
+            
+             await axios.post(url_crear_pedido_detalle, {
+              id_pedido: id_pedido, 
+              id_producto: element[1].item.id, 
+              nombre_producto:element[1].item.nombre, 
+              cantidad_producto:element[1].cantidad, 
+              precio_producto:element[1].item.precio
+            })
+    
+          })
+
+          delete req.session.cart 
+          delete req.session.direccion
+          return res.redirect("/")
+        }catch(err){
+          console.log(err)
         }
-    })
+      }
+    pedido_detalle()
+      console.log("creó pedido-detalle")
+      console.log(req.session)
+    //   let smtpTransport = nodemailer.createTransport({
+    //     host:"smtp-mail.outlook.com", 
+    //     port:587, 
+    //     secure:false, 
+    //     auth:{
+    //         user:"icarluus@outlook.com", 
+    //         pass:"Imagar@2022"
+    //     }, 
+    //     tls:{
+    //         rejectUnauthorized:false
+    //     }
+    // })
 
-    let contentHTML = `
-    <h1>HolaMundilloo</h1>    `
+    // let contentHTML = `
+    // <h1>HolaMundilloo</h1>    `
 
-    const info = await smtpTransport.sendMail({
-        from:"icarluus@outlook.com",
-        to:"icarluus@outlook.com", 
-        subject:"Prueba de Email",
-        text:"Hola mundoo"
+    // const info = await smtpTransport.sendMail({
+    //     from:"icarluus@outlook.com",
+    //     to:"icarluus@outlook.com", 
+    //     subject:"Prueba de Email",
+    //     text:"Pedido realizado"
 
-    })
+    // })
 
-      
+    
 
     }catch(err){
 

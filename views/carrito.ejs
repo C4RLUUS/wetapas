@@ -20,12 +20,21 @@
 
                 <div class="product-card col">
                     <div class="product-body">
-                        <img src="<%= productos[i].item.imagen %> " alt="" srcset="" class="product-img">
-                        <div class="product-text">
-                            <h4 class="product-name"><%= productos[i].item.nombre %></h4>
-                            <div class="product-extra">
-                                <p class="precio"><%= parseFloat(productos[i].item.precio).toFixed(2) %>€</p>
-                                <p class="cantidad">x <%= productos[i].cantidad %></p>
+                        <div class="row centrar">
+                            <div class="col-6">
+                                <div class="img-center">
+
+                                    <img src="<%= productos[i].item.imagen %> " alt="" srcset="" class="product-img">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="product-text">
+                                    <h4 class="product-name"><%= productos[i].item.nombre %></h4>
+                                    <div class="product-extra">
+                                        <p class="precio"><%= parseFloat(productos[i].item.precio).toFixed(2) %>€</p>
+                                        <p class="cantidad">x <%= productos[i].cantidad %></p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <a href="/carrito/remove?id=<%=productos[i].item.id%>" class="remove-item"><span class="iconify" data-icon="bxs:trash-alt"></span></a>

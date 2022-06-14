@@ -28,8 +28,7 @@ router.get("/", async (req, res) => {
             
         // }
         
-        console.log("first")
-        console.log(productos)
+       
             if(req.session.user){
                 let user = req.session.user.firstName; 
                 if(req.session.cart){
@@ -55,9 +54,7 @@ router.post("/add-review", async(req, res) => {
     if(!req.session.user){
         res.redirect("/login")
     }else{
-        console.log("review")
-        console.log(producto)
-        console.log(req.body); 
+        
         let url_crearOpinion = "http://127.0.0.1:8000/api/reviews/crear"
 
         // validar Campos
@@ -77,6 +74,7 @@ router.post("/add-review", async(req, res) => {
             }).then((response) => {
                 let msg = response.data.message
                 console.log(msg)
+                //hacer alert de estado
                 res.redirect(`/productos/${producto_id}`)
             })
             
@@ -261,7 +259,6 @@ router.get("/:id", async (req, res) => {
             let url_productoPorId =`http://127.0.0.1:8000/api/productos/mostrar/${req.params.id}`
             const response = await axios.get(url_productoPorId); 
             producto = response.data.producto
-            console.log(producto);
             
             let opiniones =[] 
             let url_opiniones_del_producto = `http://127.0.0.1:8000/api/reviews/listar/produtos/${req.params.id}`

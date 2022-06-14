@@ -20,8 +20,8 @@ app.use(session({
     cookie: { secure: false }
   }))
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname));
 
 // use a middleware function
