@@ -64,6 +64,17 @@ html,body{
     width: 100%;
     height: 60px;
     background-color: var(--rojoClaro);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-cut-out{
+    padding: 12px;
+    background-color: var(--blanco);
+    mix-blend-mode: screen;
+    font-size: 30px;
+    margin-top: 12px;
 }
 
 .review-add{

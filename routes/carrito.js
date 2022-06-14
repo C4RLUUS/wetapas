@@ -8,13 +8,20 @@ const nodemailer = require('nodemailer');
 const url_productosActivos = "http://127.0.0.1:8000/api/productos/listar/activos"
 
 router.get("/", async (req, res) => {
-    if (!req.session.cart) {
-        return res.render('carrito', {
-          productos: null, 
-          totalPrice: 0,
-          totalItems: 0
-        });
-      }
+  if(req.session.user){
+    let user = req.session.user.firstName; 
+    if(req.session.cart){
+        let totalItems = req.session.cart.totalItems
+        res.render("productoDetalle", {user, totalItems, producto, opiniones})
+    }else{
+        res.render("productoDetalle", {user, producto, opiniones})
+    }
+}else if(req.session.cart){
+    let totalItems = req.session.cart.totalItems
+    res.render("productoDetalle", {totalItems, producto, opiniones})
+}else if(!req.session.user && !req.session.cart){
+    res.render("productoDetalle", {producto, opiniones}); 
+} 
       var cart = new Cart(req.session.cart);
       res.render('carrito', {
         productos: cart.getItems(),
@@ -352,21 +359,21 @@ router.get("/direcciones", async (req, res) => {
   });
   
   // setup e-mail data, even with unicode symbols
-  var mailOptions = {
-      from: 'icarluus@outlook.com', // sender address (who sends)
-      to: 'icarluus@outlook.com', // list of receivers (who receives)
-      subject: 'Hello ', // Subject line
-      text: 'Hello world ', // plaintext body
-      html: '<b>Hello world </b><br> This is the first email sent with Nodemailer in Node.js' // html body
-  };
+//   var mailOptions = {
+//       from: 'icarluus@outlook.com', // sender address (who sends)
+//       to: 'icarluus@outlook.com', // list of receivers (who receives)
+//       subject: 'Hello ', // Subject line
+//       text: 'Hello world ', // plaintext body
+//       html: '<b>Hello world </b><br> This is the first email sent with Nodemailer in Node.js' // html body
+//   };
 
-  transporter.sendMail(mailOptions, function(error, info){
-    if(error){
-        return console.log(error);
-    }
+//   transporter.sendMail(mailOptions, function(error, info){
+//     if(error){
+//         return console.log(error);
+//     }
 
-    console.log('Message sent: ' + info.response);
-});
+//     console.log('Message sent: ' + info.response);
+// });
 
     return res.redirect("/")
     
