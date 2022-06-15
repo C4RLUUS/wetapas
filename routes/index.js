@@ -126,7 +126,7 @@ router.get("/user/mispedidos", async(req, res) => {
               
               })).then(results => {
                 // All the resolved promises returned from the map function.
-                pedidos_productos_array = results
+                pedidos_productos_array.push(results)
                 if(req.session.cart){
                     let totalItems = req.session.cart.totalItems
                     
