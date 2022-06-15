@@ -3,7 +3,7 @@ const router = express.Router();
 const session = require('express-session')
 const axios = require('axios').default;
 
-router.get("/", async (req, res, next) => {
+router.get("/", async (req, res) => {
 
     console.log(req.query)
     if(req.session.user){
